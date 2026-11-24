@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TIC não é método</title>
+<meta name="description" content="Seminário do Grupo 6 sobre Tecnologias da Informação e Comunicação no ensino de Física: tese, pesquisa, aplicação e pergunta para o debate.">
+<style>
+:root{
+  --paper:#ffffff;--soft:#f3f0ea;--card:#ffffff;--ink:#15213a;--muted:#5a6578;--line:#e4ddd0;
+  --accent:#e2552d;--teal:#1f8a7f;--violet:#5b4bb7;--gold:#d9a521;--night:#11151f;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --shadow:0 1px 2px rgba(21,33,58,.06),0 10px 30px rgba(21,33,58,.08);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--paper:#11151f;--soft:#1a2030;--card:#181e2b;--ink:#ece7dc;--muted:#a4adbd;--line:#2c3446;--accent:#ff7a50;--teal:#4cc3b5;--violet:#9d8ff0;--gold:#f0c24f;--shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.3);color-scheme:dark}}
+:root[data-theme=dark]{--paper:#11151f;--soft:#1a2030;--card:#181e2b;--ink:#ece7dc;--muted:#a4adbd;--line:#2c3446;--accent:#ff7a50;--teal:#4cc3b5;--violet:#9d8ff0;--gold:#f0c24f;--shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.3);color-scheme:dark}
+*{box-sizing:border-box}html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:17px/1.6 var(--sans)}
+a{color:inherit;text-underline-offset:3px}img{max-width:100%;display:block}
+h1,h2,h3{font-family:var(--serif);font-weight:600;letter-spacing:-.01em;line-height:1.1;margin:0}
+h2{font-size:clamp(30px,4.2vw,46px)}h3{font-size:22px}p{margin:0 0 .9em}
+.wrap{max-width:1140px;margin:0 auto;padding:0 20px}
+.kicker{font:700 12px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--accent)}
+.muted{color:var(--muted)}
+section{padding:72px 0}section+section{border-top:1px solid var(--line)}
+.sec-head{display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:end;margin-bottom:30px}
+.roman{font:600 clamp(64px,9vw,110px)/.8 var(--serif)}
+.sec-head p{max-width:720px;color:var(--muted);margin:.6em 0 0;font-size:18px}
+/* hero */
+.hero{background:#11151f;color:#ece7dc;position:relative;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding-top:64px;padding-bottom:64px}
+.hero h1{font-size:clamp(48px,8vw,98px);line-height:.92;letter-spacing:-.035em;margin:16px 0 18px}
+.hero h1 em{color:#ff7a50}
+.hero p.lead{font-size:clamp(18px,2.1vw,21px);color:#c9c3b6;max-width:560px}
+.hero .meta{font-size:14px;color:#a4adbd;margin-top:22px}
+.hero-img{border-radius:18px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.45);aspect-ratio:4/3}
+.hero-img img{width:100%;height:100%;object-fit:cover}
+.btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+.btn{display:inline-flex;align-items:center;gap:8px;font:600 15px/1 var(--sans);padding:14px 20px;border-radius:999px;text-decoration:none;border:1px solid transparent;min-height:46px}
+.btn.primary{background:#ff7a50;color:#1a0d07}.btn.ghost{border-color:#46506a;color:#ece7dc}
+.btn.dark{background:var(--ink);color:var(--paper)}.btn.out{border-color:var(--line);color:var(--ink)}
+.btn:hover{filter:brightness(1.05);transform:translateY(-1px)}
+.top{position:absolute;top:16px;right:16px;display:flex;gap:8px}
+.top button{font:600 13px var(--sans);background:transparent;color:#ece7dc;border:1px solid #46506a;border-radius:999px;padding:8px 14px;cursor:pointer}
+/* nav */
+nav.idx{position:sticky;top:0;z-index:10;background:color-mix(in srgb,var(--paper) 90%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav.idx ul{display:flex;gap:4px;list-style:none;margin:0;padding:10px 0;overflow-x:auto;scrollbar-width:none}
+nav.idx a{display:block;white-space:nowrap;font:600 14px var(--sans);color:var(--muted);text-decoration:none;padding:10px 14px;border-radius:999px}
+nav.idx a:hover,nav.idx a.on{background:var(--soft);color:var(--ink)}
+/* cards */
+.grid{display:grid;gap:18px}.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;box-shadow:var(--shadow)}
+.card.tint{background:var(--soft);box-shadow:none;border-color:transparent}
+.card h3{margin:12px 0 8px}.card p{font-size:16px;margin:0}
+.tag{display:inline-block;font:700 11px/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;padding:6px 10px;border-radius:999px;background:var(--soft);color:var(--muted)}
+.dot{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;color:#fff;font:600 20px var(--serif)}
+.tese{background:var(--ink);color:var(--paper);border-radius:20px;padding:28px 30px;font:600 clamp(22px,2.8vw,30px)/1.3 var(--serif);margin-top:22px}
+.tese b{color:var(--accent)}
+.refs{font-size:13.5px;color:var(--muted);margin-top:12px}
+.fig{border-radius:14px;overflow:hidden;border:1px solid var(--line);box-shadow:var(--shadow);background:#fff}
+figure{margin:0}figcaption{font-size:14px;color:var(--muted);margin-top:8px}
+.zonas{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;align-items:end;margin-top:20px}
+.zona{border-radius:14px;padding:18px;color:#fff}.zona b{display:block;font:600 20px var(--serif);margin:6px 0}
+.zona small{font:700 11px var(--sans);letter-spacing:.12em;text-transform:uppercase;opacity:.9}
+.steps{counter-reset:s}
+.step .n{font:600 40px/1 var(--serif);color:var(--accent)}
+.step .t{font:700 12px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--teal)}
+.q{background:#11151f;color:#ece7dc}
+.q blockquote{margin:0;font:600 clamp(26px,3.8vw,42px)/1.25 var(--serif);max-width:980px}
+.q .prov{font-size:20px;font-style:italic;color:#c9c3b6;margin-top:24px}
+.equipe .card{text-align:left}
+.equipe .papel{font-size:14px;color:var(--muted)}
+footer{padding:30px 0 44px;font-size:14px;color:var(--muted);border-top:1px solid var(--line)}
+.reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease,transform .6s ease}
+.reveal.vis{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+@media (max-width:900px){.hero .wrap{grid-template-columns:1fr}.g3,.g4{grid-template-columns:1fr 1fr}.zonas{grid-template-columns:1fr}}
+@media (max-width:620px){section{padding:52px 0}.g2,.g3,.g4{grid-template-columns:1fr}.sec-head{grid-template-columns:1fr}.btn{flex:1 1 100%;justify-content:center}}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="top"><button id="tema" type="button" aria-label="Alternar tema claro ou escuro">◐ Tema</button></div>
+  <div class="wrap">
+    <div>
+      <div class="kicker" style="color:#ff7a50">Seminário · Grupo 6 · TICs no ensino de Física</div>
+      <h1>TIC não é <em>método</em></h1>
+      <p class="lead">A mesma tela pode treinar cliques, despejar respostas ou ajudar alguém a pensar. O que decide isso é a concepção de ensino, e não o aparelho. Mostramos isso com uma página que transforma desenhos e quadros em som.</p>
+      <div class="btns">
+        <a class="btn primary" href="index.html">▶ Abrir Desenhe o som</a>
+        <a class="btn ghost" href="#tese">Ler o seminário</a>
+      </div>
+      <div class="meta">4300356 · Elementos e Estratégia para o Ensino de Física e Ciências · Prof. José Luís N. A. Ortega · IF-USP · 27/11/2026</div>
+    </div>
+    <div class="hero-img"><img src="img/noite.jpg" alt="A Noite Estrelada, de Van Gogh (1889), um dos 27 quadros que a página sonifica"></div>
+  </div>
+</header>
+
+<nav class="idx" aria-label="Seções"><div class="wrap"><ul>
+  <li><a href="#tese">Tese</a></li><li><a href="#i">I · O que é TIC</a></li><li><a href="#ii">II · Pesquisa</a></li>
+  <li><a href="#iii">III · Aplicação</a></li><li><a href="#iv">IV · Debate</a></li><li><a href="#equipe">Equipe</a></li><li><a href="#refs">Referências</a></li>
+</ul></div></nav>
+
+<main>
+<section id="tese"><div class="wrap">
+  <div class="kicker">Antes de tudo, uma pergunta</div>
+  <div class="grid g2" style="margin-top:18px;align-items:center">
+    <figure class="reveal"><img class="fig" src="img/malevich.jpg" alt="Quadrado Negro, de Kazimir Malevich, 1915"><figcaption>Kazimir Malevich, <i>Quadrado Negro</i>, 1915.</figcaption></figure>
+    <div class="reveal">
+      <h2>Isso é o som deste quadro?</h2>
+      <p class="muted" style="margin-top:14px;font-size:19px">Começamos o seminário <a href="index.html#quadro:abstracao_quadrado">ouvindo este quadro</a>. Uma linha varre a imagem, e cada faixa de altura vira uma frequência. Depois invertemos a regra, e o mesmo quadro soa outro.</p>
+      <p style="font-size:19px">Se o som muda quando muda a regra, então o som não estava no quadro. Uma tecnologia sempre <b>representa algo segundo uma regra escolhida por alguém</b>. Ensinar com TIC é tornar essa regra visível.</p>
+      <div class="tese"><b>Tese:</b> TIC não é método. Quem decide o papel da tela é a concepção de ensino.</div>
+    </div>
+  </div>
+</div></section>
+
+<section id="i"><div class="wrap">
+  <div class="sec-head reveal"><div class="roman" style="color:var(--accent)">I</div><div><h2>O que é uma TIC no ensino de Física</h2><p>São tecnologias digitais para produzir, representar, registrar, comunicar e analisar informação. Nosso recorte é a <b>TIC interativa</b>: o estudante muda uma variável e o sistema devolve uma consequência calculada por um modelo.</p></div></div>
+  <div class="grid g3">
+    <article class="card tint reveal"><span class="tag">Grupo 5</span><h3>Audiovisual</h3><p>Mostra uma sequência pronta. O aluno assiste; a ordem e o recorte já foram decididos.</p></article>
+    <article class="card reveal" style="border-color:var(--accent)"><span class="tag" style="color:var(--accent)">Nosso foco</span><h3>Simulação interativa</h3><p>Calcula respostas a partir de um modelo. O aluno muda variáveis e vê consequências.</p></article>
+    <article class="card tint reveal"><span class="tag">Extensão</span><h3>Sensor e aplicativo</h3><p>Mede o fenômeno real, com ruído e com as limitações do instrumento.</p></article>
+  </div>
+  <h3 style="margin:46px 0 16px" class="reveal">A mesma tela, três concepções de ensino</h3>
+  <div class="grid g3">
+    <article class="card reveal"><div class="dot" style="background:#5a6578">1</div><h3>Máquina de reforço</h3><p class="muted" style="font-size:14px;margin-bottom:8px">Skinner · ambientalismo (Davis e Oliveira)</p><p>Clica, recebe "certo/errado", repete. As "máquinas de ensinar" dos anos 1950 e 60 já eram tecnologia educacional. Aprende-se a acertar o controle.</p></article>
+    <article class="card reveal"><div class="dot" style="background:var(--gold)">2</div><h3>Depósito digital</h3><p class="muted" style="font-size:14px;margin-bottom:8px">Freire · educação bancária</p><p>O professor projeta e explica; a turma assiste. A tela vira só um quadro mais bonito para "depositar" a resposta.</p></article>
+    <article class="card reveal" style="border-color:var(--teal)"><div class="dot" style="background:var(--teal)">3</div><h3>Instrumento de mediação</h3><p class="muted" style="font-size:14px;margin-bottom:8px">Vigotski · Mortimer</p><p>Pergunta, previsão, teste, explicação. A tela é instrumento e signo, que medeia a relação entre alunos, professor e conceito.</p></article>
+  </div>
+</div></section>
+
+<section id="ii"><div class="wrap">
+  <div class="sec-head reveal"><div class="roman" style="color:var(--teal)">II</div><div><h2>O que a pesquisa em ensino diz</h2><p>Duas perguntas: as simulações ajudam? E o que os estudantes já pensam sobre o som antes da aula?</p></div></div>
+  <div class="grid g2">
+    <article class="card reveal"><span class="tag" style="color:var(--teal)">Pontos fortes</span><h3>Tornar visível o invisível</h3><p>Pressão e harmônicos aparecem na tela; dá para variar uma coisa de cada vez, com segurança e baixo custo. A evidência é promissora para a compreensão conceitual (NRC, 2011).</p></article>
+    <article class="card reveal"><span class="tag" style="color:var(--accent)">Limites</span><h3>O modelo não é o mundo</h3><p>A simulação é um modelo simplificado e pode ser tomada pela própria realidade (Medeiros e Medeiros, 2002). Sem roteiro e mediação, o recurso sozinho não garante aprendizagem (Trentin et al., 2002).</p></article>
+  </div>
+  <h3 style="margin:46px 0 16px" class="reveal">Os alunos já chegam com teorias sobre o som</h3>
+  <div class="grid g3">
+    <article class="card tint reveal"><h3>"O som é uma coisa que viaja"</h3><p>Estudantes tratam o som como um material que sai da fonte e se desloca.</p><p class="refs">Eshach e Schwartz, <i>Int. J. Sci. Educ.</i> 28(7), 733–764, 2006</p></article>
+    <article class="card tint reveal"><h3>Modelos misturados</h3><p>Até universitários combinam "entidade" e "onda" num modelo híbrido, que muda conforme a pergunta.</p><p class="refs">Hrepic, Zollman e Rebello, <i>Phys. Rev. ST PER</i> 6, 020114, 2010</p></article>
+    <article class="card tint reveal"><h3>"Abaixa o som"</h3><p>No dia a dia, "alto" quer dizer forte. Na música, quer dizer agudo. Na Física, são grandezas diferentes.</p><p class="refs">Observação do grupo, a testar com a turma</p></article>
+  </div>
+  <h3 style="margin:46px 0 6px" class="reveal">O perfil conceitual da palavra "alto" (Mortimer, 2000)</h3>
+  <p class="muted reveal">As ideias prévias não são substituídas: convivem com o conceito científico. Aprender é ampliar o perfil e saber quando cada zona serve.</p>
+  <div class="zonas">
+    <div class="zona reveal" style="background:#5a6578;min-height:150px"><small>Cotidiano</small><b>"Aumenta o som"</b>alto = forte</div>
+    <div class="zona reveal" style="background:#5b4bb7;min-height:200px"><small>Música</small><b>"Essa nota é alta"</b>alto = agudo</div>
+    <div class="zona reveal" style="background:#1f8a7f;min-height:250px"><small>Física</small><b>Intensidade × frequência</b>amplitude ↔ forte · frequência ↔ agudo, duas grandezas independentes</div>
+  </div>
+</div></section>
+
+<section id="iii"><div class="wrap">
+  <div class="sec-head reveal"><div class="roman" style="color:var(--violet)">III</div><div><h2>Aplicação: Desenhe o som</h2><p>Uma página feita pelo grupo, que abre no navegador e funciona sem internet. Cada modo usa uma regra diferente e pede uma previsão antes de tocar.</p></div></div>
+  <figure class="reveal"><img class="fig" src="img/tres_modos.jpg" alt="Os três modos da página: forma de onda, desenho sonoro e ouvir um quadro"></figure>
+  <div class="btns" style="margin-top:18px"><a class="btn dark" href="index.html#onda">1 · Forma de onda</a><a class="btn dark" href="index.html#figura">2 · Desenho sonoro</a><a class="btn dark" href="index.html#quadro">3 · Ouvir um quadro</a><a class="btn out" href="index.html#aula">Roteiro de aula</a></div>
+
+  <div class="grid g2" style="margin-top:46px;align-items:start">
+    <figure class="reveal"><img class="fig" src="img/onda_quadrada.jpg" alt="Onda quadrada e espectro com harmônicos ímpares"><figcaption><b>Modo 1.</b> Mesma frequência, outra forma: a quadrada tem só harmônicos ímpares. A nota é a mesma; o timbre muda.</figcaption></figure>
+    <div class="reveal">
+      <span class="tag" style="color:var(--violet)">Conflito cognitivo, ao vivo</span>
+      <h3>Mesma estrela, duas regras</h3>
+      <p>Com a regra "mais alto na tela é mais agudo", a estrela quase não soa "pontuda". Com "mais longe do centro é mais agudo", surgem cinco subidas. A previsão da turma é desmentida (Mortimer, p. 42–44). Mas, como Mortimer insiste, o conflito sozinho não basta (p. 44): o professor precisa oferecer a explicação.</p>
+      <div class="grid g2" style="margin-top:12px"><img class="fig" src="img/estrela_vertical.jpg" alt="Estrela com regra vertical"><img class="fig" src="img/estrela_radial.jpg" alt="Estrela com regra radial: cinco subidas"></div>
+    </div>
+  </div>
+
+  <div class="grid g2" style="margin-top:40px;align-items:center">
+    <div class="reveal">
+      <span class="tag" style="color:var(--gold)">Superposição de verdade</span>
+      <h3>O quadro não tem som. A regra é que tem</h3>
+      <p>No modo 3, cada instante é a soma de 20 senoides, uma por faixa de altura do quadro. É o princípio do espectrograma, do sistema The vOICe (Meijer, 1992) e das sonificações de imagens da NASA. Invertendo a regra, o centro do <i>Quadrado Negro</i> passa do silêncio ao som mais forte.</p>
+    </div>
+    <div class="reveal"><img class="fig" src="img/sono_abstracao_quadrado.jpg" alt="Sonograma com regra claro soa forte"><img class="fig" src="img/sono_abstracao_quadrado_invertida.jpg" alt="Sonograma com a regra invertida" style="margin-top:10px"></div>
+  </div>
+
+  <h3 style="margin:50px 0 16px" class="reveal">A aula que propomos · 25 min, ensino médio</h3>
+  <div class="grid g4 steps">
+    <article class="card step reveal"><div class="n">1</div><div class="t">Pergunta · 3 min</div><h3>Problematizar</h3><p>"Como transformar um desenho em som? Quem decide?" <span class="muted">(Freire)</span></p></article>
+    <article class="card step reveal"><div class="n">2</div><div class="t">Previsão · 3 min</div><h3>Explicitar ideias</h3><p>Cada um escreve o que espera ouvir antes de tocar. <span class="muted">(Mortimer)</span></p></article>
+    <article class="card step reveal"><div class="n">3</div><div class="t">Exploração · 12 min</div><h3>Mediar</h3><p>Grupos testam, trocam a regra e comparam com a previsão. <span class="muted">(Vigotski)</span></p></article>
+    <article class="card step reveal"><div class="n">4</div><div class="t">Explicação · 7 min</div><h3>Tomar consciência</h3><p>f ↔ agudo, A ↔ forte, forma ↔ timbre. O som veio da regra. <span class="muted">(Mortimer)</span></p></article>
+  </div>
+
+  <h3 style="margin:50px 0 16px" class="reveal">O que a tela não mostra</h3>
+  <div class="grid g4">
+    <article class="card tint reveal"><span class="tag">Bunge</span><h3>O modelo não é o sistema</h3><p>A senoide é idealizada; o som da sala tem eco, ruído e um alto-falante imperfeito.</p></article>
+    <article class="card tint reveal"><span class="tag">Rubem Alves</span><h3>A rede decide o que se pesca</h3><p>A regra do modo 3 lê brilho e ignora a cor. Kandinsky ouviria outro quadro.</p></article>
+    <article class="card tint reveal"><span class="tag">Kuhn</span><h3>O instrumento muda o que se vê</h3><p>Sonificar dados astronômicos muda o acesso a eles, dentro de um paradigma.</p></article>
+    <article class="card reveal" style="border-color:var(--accent)"><span class="tag" style="color:var(--accent)">Honestidade</span><h3>Acessibilidade não testada</h3><p>Som é uma via a mais. A página nunca foi testada com estudantes cegos.</p></article>
+  </div>
+</div></section>
+
+<section id="iv" class="q"><div class="wrap">
+  <div class="kicker" style="color:#f0c24f">IV · Pergunta para o debate</div>
+  <blockquote style="margin-top:20px" class="reveal">Se o mesmo simulador serve para treinar cliques, transmitir respostas ou construir conceitos, o que, numa aula com TIC, mostraria que houve aprendizagem?</blockquote>
+  <p class="prov reveal">E uma provocação: depois da aula, o aluno continua dizendo "abaixa o som". A TIC falhou?</p>
+</div></section>
+
+<section id="equipe"><div class="wrap">
+  <div class="kicker">Quem apresenta</div>
+  <div class="grid g3 equipe" style="margin-top:18px">
+    <article class="card reveal"><h3>Carolina Salvatierra Neves</h3><p class="papel">I · O que é TIC, fronteira com o audiovisual, história e tese. Propôs figuras simples e o tema da acessibilidade.</p></article>
+    <article class="card reveal"><h3>Aymee</h3><p class="papel">II · Pesquisa sobre simulações e concepções de som, perfil conceitual e limites. Propôs a partícula que percorre o desenho.</p></article>
+    <article class="card reveal"><h3>Jhuann Piedro Alves Nogueira</h3><p class="papel">III e IV · Demonstração ao vivo, sequência de aula e pergunta final. Desenvolveu a página.</p></article>
+  </div>
+</div></section>
+
+<section id="refs"><div class="wrap">
+  <div class="kicker">Referências</div>
+  <div class="grid g2" style="margin-top:18px;font-size:15px">
+    <div><h3 style="font-size:19px;margin-bottom:10px">Textos do curso</h3>
+      <p>ALVES, R. <i>Filosofia da ciência</i>. Brasiliense, 1981, p. 75–88.</p>
+      <p>BUNGE, M. <i>Filosofia da Física</i>. Edições 70, 1973, p. 11–20.</p>
+      <p>KUHN, T. <i>A estrutura das revoluções científicas</i>. Perspectiva, 1982.</p>
+      <p>FREIRE, P. <i>Pedagogia do oprimido</i>. Paz e Terra, 1996, p. 65–115.</p>
+      <p>DAVIS, C.; OLIVEIRA, Z. <i>Psicologia na educação</i>. Cortez, 1994.</p>
+      <p>MORTIMER, E. F. <i>Linguagem e formação de conceitos no ensino de ciências</i>. Ed. UFMG, 2000, p. 35–82.</p></div>
+    <div><h3 style="font-size:19px;margin-bottom:10px">Pesquisa e recursos</h3>
+      <p>MEDEIROS, A.; MEDEIROS, C. F. Possibilidades e limitações das simulações computacionais no ensino da Física. <i>RBEF</i>, 24(2), 77–86, 2002. <a href="https://doi.org/10.1590/S0102-47442002000200002">doi</a></p>
+      <p>NATIONAL RESEARCH COUNCIL. <i>Learning Science Through Computer Games and Simulations</i>. National Academies Press, 2011.</p>
+      <p>TRENTIN, M. A. S.; PÉREZ, C. A. S.; SANTOS, A. V. <i>A utilização de laboratórios virtuais na melhoria do processo de ensino-aprendizagem</i>, 2002.</p>
+      <p>ESHACH, H.; SCHWARTZ, J. L. Sound stuff? Naïve materialism in middle-school students' conceptions of sound. <i>Int. J. Sci. Educ.</i>, 28(7), 733–764, 2006. <a href="https://doi.org/10.1080/09500690500277938">doi</a></p>
+      <p>HREPIC, Z.; ZOLLMAN, D.; REBELLO, N. S. Identifying students' mental models of sound propagation. <i>Phys. Rev. ST PER</i>, 6, 020114, 2010. <a href="https://doi.org/10.1103/PhysRevSTPER.6.020114">doi</a></p>
+      <p>SKINNER, B. F. <i>The Technology of Teaching</i>. Appleton-Century-Crofts, 1968.</p>
+      <p class="muted">Imagens das obras: Wikimedia Commons, domínio público. Créditos completos na aba "Física e cuidados" da página.</p></div>
+  </div>
+</div></section>
+</main>
+
+<footer><div class="wrap">Grupo 6 · Seminário "Tecnologias da Informação (TICs) no ensino de Física" · 4300356, IF-USP, 2026 · <a href="index.html">Desenhe o som</a></div></footer>
+
+<script>
+(()=>{
+  const st={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+  const t=st.get('dsom:tema');if(t)document.documentElement.dataset.theme=t;
+  document.getElementById('tema').addEventListener('click',()=>{const d=document.documentElement.dataset.theme?document.documentElement.dataset.theme==='dark':matchMedia('(prefers-color-scheme: dark)').matches;const n=d?'light':'dark';document.documentElement.dataset.theme=n;st.set('dsom:tema',n);});
+  const io='IntersectionObserver' in window?new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target);}}),{rootMargin:'0px 0px -8% 0px'}):null;
+  document.querySelectorAll('.reveal').forEach(el=>io?io.observe(el):el.classList.add('vis'));
+  const links=[...document.querySelectorAll('nav.idx a')];
+  const so='IntersectionObserver' in window?new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)links.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id));}),{rootMargin:'-45% 0px -50% 0px'}):null;
+  if(so)document.querySelectorAll('main section[id]').forEach(s=>so.observe(s));
+})();
+</script>
+</body>
+</html>

@@ -489,7 +489,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;font-size:14px;color
 </section>
 </main>
 
-<footer><div class="wrap">Desenhe o som · Seminário “TICs no ensino de Física”, disciplina 4300356, IF-USP, 2026 · Grupo 6. Ideias de Aymee (partícula percorrendo o desenho), Carol (figuras simples e acessibilidade) e Jhuann (finalidade didática). Protótipo não testado com turmas.</div></footer>
+<footer><div class="wrap">Desenhe o som · Seminário “TICs no ensino de Física”, disciplina 4300356, IF-USP, 2026 · Grupo 6. Ideias de Aymee (partícula percorrendo o desenho), Carol (figuras simples e acessibilidade) e Jhuann (finalidade didática). Protótipo não testado com turmas. · <a href="seminario.html">Página do seminário</a></div></footer>
 
 <script>
 /* Dados das obras. As imagens são injetadas pelo script montar.py. */
@@ -661,7 +661,7 @@ $$('.previsao').forEach(p=>{const ta=p.querySelector('textarea'),k='prev:'+p.dat
     $('#regra-texto').innerHTML='<b>Regra em uso: '+t[0]+'</b>'+t[1]+(escala.value==='penta'?' As notas são arredondadas para a escala pentatônica.':'');
     $('#eixo-fig').textContent={vertical:'↑ mais alto na tela → nota mais aguda',invertida:'↑ mais alto na tela → nota mais grave',radial:'◎ mais longe do centro → nota mais aguda'}[regra.value];}
   function guias(){cx.save();cx.font=F(cv,12);cx.fillStyle=css('--muted');cx.strokeStyle=css('--grid');cx.lineWidth=1;
-    if(regra.value==='radial'){for(let k=1;k<=4;k++){const r=k/4*H*.48;cx.beginPath();cx.arc(C.x,C.y,r,0,7);cx.stroke();cx.fillText(fmt(220*Math.pow(2,2*k/4))+' Hz',C.x+r+6,C.y-6);}}
+    if(regra.value==='radial'){for(let k=1;k<=4;k++){const r=k/4*H*.48;cx.beginPath();cx.arc(C.x,C.y,r,0,7);cx.stroke();const a=Math.PI/4;cx.fillText(fmt(220*Math.pow(2,2*k/4))+' Hz',C.x+r*Math.cos(a)+6,C.y-r*Math.sin(a)-6);}}
     else{for(let k=0;k<=4;k++){const y=H-k/4*H;cx.beginPath();cx.moveTo(0,y);cx.lineTo(W,y);cx.stroke();const u=regra.value==='vertical'?k/4:1-k/4;cx.fillText(fmt(220*Math.pow(2,2*u))+' Hz',10,Math.min(H-8,Math.max(22,y-6)));}}
     cx.restore();}
   function pintar(bola){cx.fillStyle=css('--card');cx.fillRect(0,0,W,H);guias();
@@ -790,7 +790,12 @@ $$('.previsao').forEach(p=>{const ta=p.querySelector('textarea'),k='prev:'+p.dat
   galeria();escolher(QUADROS.find(q=>q.id===store.get('obra',''))||QUADROS.find(q=>q.id==='posimpressionismo_noite'));
 })();
 
-abrir(store.get('aba','aula'));
+/* link direto: #onda, #figura, #quadro, #fisica, #aula ou #quadro:<id-da-obra> */
+const hs=decodeURIComponent(location.hash.slice(1)).split(':');
+if(['aula','onda','figura','quadro','fisica'].includes(hs[0])){abrir(hs[0]);
+  if(hs[0]==='quadro'&&hs[1]){const b=document.querySelector('.obra[data-id="'+hs[1]+'"]');if(b){b.click();}}
+  else requestAnimationFrame(()=>{const bar=document.querySelector('.tabs-bar');window.scrollTo(0,bar.offsetTop);});}
+else abrir(store.get('aba','aula'));
 let rz=0;addEventListener('resize',()=>{clearTimeout(rz);rz=setTimeout(()=>refazer.forEach(f=>f()),150);});
 })();
 </script>

@@ -1,6 +1,6 @@
 # Desenhe o som
 
-[Abrir a página interativa](https://jhuannp.github.io/desenhe-o-som/)
+[Abrir a página interativa](https://jhuannp.github.io/desenhe-o-som/) · [Página do seminário “TIC não é método”](https://jhuannp.github.io/desenhe-o-som/seminario.html)
 
 Protótipo do Grupo 6 para o seminário **Tecnologias da Informação (TICs) no ensino de Física**, da disciplina *Elementos e Estratégia para o Ensino de Física e Ciências*.
 
