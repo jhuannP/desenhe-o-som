@@ -119,6 +119,44 @@ select{font:600 14px var(--sans);color:var(--ink);background:var(--card);border:
 .previsao p{font-size:14px;color:var(--muted);margin-bottom:8px}
 textarea{width:100%;min-height:76px;resize:vertical;font:15px/1.45 var(--sans);color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
 
+/* Plano de aula */
+.tese-aula{background:var(--ink);color:var(--paper);border-radius:16px;padding:18px 22px;font:600 18px/1.45 var(--serif);margin:4px 0 20px}
+.tese-aula b{color:var(--accent)}
+.ficha-tec{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.ficha-tec h4,.ficha-aluno h3{margin:0 0 8px;font:600 18px var(--serif)}
+.ficha-tec ul{padding-left:18px;margin:0;font-size:14.5px}.ficha-tec li+li{margin-top:5px}
+.aula-h{display:flex;align-items:baseline;gap:12px;margin:36px 0 14px;font-size:28px}
+.aula-h span{font:700 12px var(--sans);letter-spacing:.12em;text-transform:uppercase;background:var(--accent);color:#fff;padding:6px 10px;border-radius:999px}
+.sec-aula{margin:36px 0 10px;font-size:26px}
+.momentos{display:grid;gap:12px}
+.momento{display:grid;grid-template-columns:86px 1fr;gap:16px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:var(--shadow)}
+.momento .tempo{font:600 22px var(--serif);color:var(--accent);text-align:center;padding-top:2px}
+.momento h4{margin:0 0 10px;font:600 20px var(--serif)}
+.momento .faz{display:grid;grid-template-columns:1fr 1fr;gap:16px;font-size:15px}
+.momento .faz > div > b{display:block;font:700 11px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.momento .faz p{margin:0}
+.momento .tela{margin-top:12px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:14px}
+.momento .tela > b{font:700 11px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-right:4px}
+.btn.mini{padding:8px 12px;min-height:36px;font-size:13px;text-decoration:none}
+.momento .cuid{margin:10px 0 0;font-size:14px;color:var(--muted)}
+.momento .cuid b{color:var(--gold)}
+.ptras{margin-top:12px;border-top:1px dashed var(--line);padding-top:10px}
+.ptras summary{cursor:pointer;font:700 13px var(--sans);color:var(--violet)}
+.ptras ul{list-style:none;padding:0;margin:10px 0 0;display:grid;gap:8px}
+.ptras li{font-size:14.5px;line-height:1.45}
+.ptras .aut{display:inline-block;font:700 11px var(--sans);letter-spacing:.06em;text-transform:uppercase;background:color-mix(in srgb,var(--violet) 16%,transparent);color:var(--violet);border-radius:999px;padding:3px 9px;margin-right:8px}
+.tres-prof{min-width:720px}
+.tres-prof th small{display:block;font-weight:400;text-transform:none;letter-spacing:0;font-size:12px;margin-top:2px}
+.tres-prof td:last-child{background:color-mix(in srgb,var(--teal) 9%,transparent)}
+.autores-aula{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.autores-aula p{margin:8px 0 6px;font-size:14.5px}.autores-aula small{color:var(--muted)}
+.ficha-aluno ol{padding-left:20px;margin:0}.ficha-aluno li{margin:8px 0;font-size:15px}
+@media (max-width:980px){.ficha-tec{grid-template-columns:1fr 1fr}.autores-aula{grid-template-columns:1fr 1fr}}
+@media (max-width:640px){.ficha-tec,.autores-aula{grid-template-columns:1fr}.momento{grid-template-columns:1fr;gap:6px}.momento .tempo{text-align:left}.momento .faz{grid-template-columns:1fr}}
+@media print{
+  body{background:#fff;color:#000}.hero,.tabs-bar,footer,.no-print,.painel:not(#p-aula){display:none!important}
+  #p-aula{display:block!important;padding:0}.card,.momento{box-shadow:none;break-inside:avoid}.tese-aula{background:#eee;color:#000}
+  .ptras ul{display:grid!important}}
 /* Aula */
 .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;counter-reset:s}
 .step{padding:22px;position:relative}
@@ -251,24 +289,154 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;font-size:14px;color
 <section class="painel" id="p-aula" role="tabpanel" aria-label="Roteiro de aula">
   <div class="wrap">
     <div class="painel-head"><div>
-      <div class="kicker">Para usar em aula · cerca de 25 minutos</div>
-      <h2>Pergunta, previsão, exploração, explicação</h2>
-      <p>A tecnologia só ajuda se o estudante <strong>pensar antes de clicar</strong>. Cada experiência tem um campo de previsão: escreva o que espera ouvir, toque e compare.</p>
-    </div></div>
+      <div class="kicker">Plano de aula · Ondas sonoras · ensino médio · 2 aulas de 50 min</div>
+      <h2>Uma aula de ondas com TIC, pensada com o que estudamos</h2>
+      <p>Este roteiro mostra como um professor que conhece Freire, Davis e Oliveira, Mortimer e a filosofia da ciência do Bloco I usa a mesma ferramenta de um jeito mais intencional. Cada momento traz o que o professor faz, o que os alunos fazem e, em “Por trás desta escolha”, o autor do curso que justifica a decisão.</p>
+    </div><div class="no-print"><button class="btn" id="imprimir-plano" type="button">🖨 Imprimir o plano</button></div></div>
 
-    <div class="steps">
-      <article class="card step"><div class="num">1</div><div class="min">3 min</div><h3>Pergunta inicial</h3>
-        <p>“Como transformar um desenho em som? Quem decide como ele vai soar?”</p>
-        <ul><li>Ouvir hipóteses sem corrigir.</li><li>Anotar no quadro as palavras usadas: altura, volume, grave, agudo, forte…</li></ul></article>
-      <article class="card step"><div class="num">2</div><div class="min">3 min</div><h3>Previsão</h3>
-        <ul><li>Na <b>forma de onda</b>: o que muda se eu dobrar a frequência?</li><li>No <b>desenho sonoro</b>: círculo e estrela vão soar parecidos?</li><li>No <b>quadro</b>: onde o som ficará mais forte? Mais agudo?</li></ul></article>
-      <article class="card step"><div class="num">3</div><div class="min">12 min</div><h3>Exploração</h3>
-        <ul><li>Grupos testam a previsão em uma das três experiências.</li><li>Depois <b>trocam a regra</b> (no modo 2 e no 3) e ouvem a mesma imagem de novo.</li><li>Registram uma diferença entre previsão e resultado.</li></ul></article>
-      <article class="card step"><div class="num">4</div><div class="min">7 min</div><h3>Explicação</h3>
-        <ul><li>Frequência ↔ altura; amplitude ↔ intensidade; forma ↔ timbre.</li><li>O som da figura <b>não estava na figura</b>: ele veio da regra programada.</li><li>Onde isso é usado de verdade? Astronomia, acessibilidade, música.</li></ul></article>
+    <div class="tese-aula"><b>A ideia central.</b> A tecnologia não ensina sozinha. O que faz diferença é a concepção de ensino de quem a usa: a mesma tela pode virar máquina de reforço, depósito de respostas ou instrumento de mediação. Este plano escolhe a terceira opção, de propósito.</div>
+
+    <div class="ficha-tec">
+      <article class="card pad"><h4>Objetivos de aprendizagem</h4><ul>
+        <li>Relacionar frequência com altura (agudo/grave), amplitude com intensidade (forte/fraco) e forma da onda com timbre.</li>
+        <li>Usar T = 1/f e λ = v/f em um exemplo.</li>
+        <li>Distinguir o sentido cotidiano de “som alto” do sentido físico.</li>
+        <li>Reconhecer que toda representação digital segue uma regra escolhida por alguém.</li></ul></article>
+      <article class="card pad"><h4>Antes da aula</h4><ul>
+        <li>Perguntar à turma, na aula anterior, que sons fazem parte do seu dia (tema gerador, no sentido de Freire).</li>
+        <li>Testar o som do projetor e abrir o site.</li>
+        <li>Imprimir a ficha do aluno.</li></ul></article>
+      <article class="card pad"><h4>Materiais</h4><ul>
+        <li>Computador com projetor e caixa de som.</li>
+        <li>Se houver: computadores ou celulares em duplas.</li>
+        <li>Opcional: o app gratuito phyphox e um diapasão.</li>
+        <li>Ficha do aluno impressa.</li></ul></article>
+      <article class="card pad"><h4>Avaliação</h4><ul>
+        <li>Ficha de previsão e registro (formativa).</li>
+        <li>Pergunta de transferência no fim da aula 2.</li>
+        <li>Critério: justificar com as relações físicas, não só usar a palavra certa.</li></ul></article>
     </div>
 
-    <div class="compare">
+    <h3 class="aula-h"><span>Aula 1</span>Do cotidiano ao modelo</h3>
+    <div class="momentos"><article class="momento">
+        <div class="tempo">8 min</div>
+        <div class="corpo"><h4>1. Problematizar: o som do dia a dia</h4>
+          <div class="faz"><div><b>O professor</b><p>Pergunta, sem dar a resposta: “Quando alguém pede <i>abaixa o som</i>, o que muda no som? E quando dizemos que uma nota é <i>alta</i>?”. Anota no quadro as palavras da turma (alto, forte, grave, agudo, volume…), sem corrigir.</p></div><div><b>Os alunos</b><p>Falam de sons que conhecem: música, fone de ouvido, barulho da escola. Discordam entre si sobre o que é “alto”.</p></div></div>
+          <p class="cuid"><b>Cuidado:</b> corrigir agora transforma a pergunta em teste. O objetivo deste momento é tornar visíveis as ideias da turma.</p>
+          <details class="ptras"><summary>Por trás desta escolha</summary><ul><li><span class="aut">Freire</span>Educação problematizadora: o conteúdo parte do mundo dos alunos e de uma pergunta, não de uma definição depositada (p. 65–87).</li><li><span class="aut">Mortimer</span>As concepções prévias precisam aparecer antes de qualquer explicação. “Alto” já tem duas zonas no perfil: forte (cotidiano) e agudo (música).</li><li><span class="aut">Pesquisa</span>Muitos estudantes pensam o som como uma “coisa” que viaja (Eshach e Schwartz, 2006). Vale ouvir se essa ideia aparece.</li></ul></details>
+        </div></article><article class="momento">
+        <div class="tempo">5 min</div>
+        <div class="corpo"><h4>2. Prever por escrito</h4>
+          <div class="faz"><div><b>O professor</b><p>Entrega a ficha (no fim desta página) e pede três previsões individuais: o que acontece com o som se a frequência dobrar? E se a amplitude dobrar? E se a forma mudar, com a mesma frequência?</p></div><div><b>Os alunos</b><p>Escrevem antes de ouvir. Ninguém toca no computador ainda.</p></div></div>
+          <div class="tela"><b>Na tela</b>campo <i>Antes de ouvir: sua previsão</i>, presente em cada modo.</div>
+          <details class="ptras"><summary>Por trás desta escolha</summary><ul><li><span class="aut">Mortimer</span>Explicitar a ideia antes do teste é o que permite que o resultado seja um conflito, e não só uma curiosidade (p. 42–44).</li><li><span class="aut">Piaget</span>A previsão compromete o esquema do aluno; se o resultado não couber nele, há desequilíbrio, motor da equilibração (Davis e Oliveira).</li></ul></details>
+        </div></article><article class="momento">
+        <div class="tempo">15 min</div>
+        <div class="corpo"><h4>3. Explorar em duplas: modo 1</h4>
+          <div class="faz"><div><b>O professor</b><p>Circula entre as duplas com perguntas-pista, não respostas: “O que você mudou? O que ficou igual? O que o gráfico mostrou?”. Quem resolve sozinho recebe um desafio novo; quem trava recebe uma pista a mais.</p></div><div><b>Os alunos</b><p>Seguem três tarefas: (A) mudar <b>só</b> a frequência, com o botão ×2; (B) mudar <b>só</b> a amplitude; (C) trocar a forma (senoide → quadrada → dente de serra) e olhar o espectro. Registram o que ouviram e o que viram.</p></div></div>
+          <div class="tela"><b>Na tela</b><a class="btn mini" href="#onda:sine">▶ abrir o modo 1 na senoide</a></div><p class="cuid"><b>Cuidado:</b> a bolinha anda em câmera lenta; a frequência real é centenas de vezes por segundo.</p>
+          <details class="ptras"><summary>Por trás desta escolha</summary><ul><li><span class="aut">Vigotski</span>Zona de desenvolvimento proximal: a pista certa, do professor ou do colega, permite fazer com ajuda o que ainda não se faz sozinho. O gráfico é um signo que medeia o pensamento.</li><li><span class="aut">Davis e Oliveira</span>Interacionismo: o aluno age sobre o objeto e com os outros. O erro informa a hipótese que ele construiu.</li><li><span class="aut">Skinner (contraponto)</span>Nada de “acertou, ganha ponto”: aqui o objetivo é explicar o que se ouve, não acertar o botão.</li><li><span class="aut">Bunge</span>O gráfico é um modelo idealizado da pressão no tempo, não a corda nem o ar. Vale dizer isso em voz alta.</li></ul></details>
+        </div></article><article class="momento">
+        <div class="tempo">15 min</div>
+        <div class="corpo"><h4>4. Sistematizar: dar nome e relação</h4>
+          <div class="faz"><div><b>O professor</b><p>Organiza no quadro, a partir dos registros: <b>frequência ↔ altura</b> (agudo/grave) e período T = 1/f; <b>amplitude ↔ intensidade</b> (forte/fraco; a intensidade cresce com o quadrado da amplitude); <b>forma ↔ timbre</b> (os harmônicos). Resolve um exemplo: Lá de 440 Hz no ar (v ≈ 343 m/s) tem T ≈ 2,27 ms e λ = v/f ≈ 0,78 m.</p></div><div><b>Os alunos</b><p>Comparam com as previsões: quem acertou e por quê, quem errou e por quê. Fazem o exemplo para outra nota.</p></div></div>
+          
+          <details class="ptras"><summary>Por trás desta escolha</summary><ul><li><span class="aut">Mortimer</span>O conflito, sozinho, não basta (p. 44). Onde houve lacuna, e não conflito, é o professor quem introduz o conceito.</li><li><span class="aut">Kuhn</span>O problema resolvido é um exemplar: ensina a “ver” o som como a Física vê (p. 29–105).</li><li><span class="aut">Freire</span>Diálogo não é ausência de professor: ele organiza e oferece o conhecimento sistematizado, junto com a turma.</li></ul></details>
+        </div></article><article class="momento">
+        <div class="tempo">7 min</div>
+        <div class="corpo"><h4>5. Registrar e levar para casa</h4>
+          <div class="faz"><div><b>O professor</b><p>Pede que cada um complete a ficha e propõe a tarefa de casa: observar três sons e descrevê-los duas vezes, com as palavras do dia a dia e com as da Física.</p></div><div><b>Os alunos</b><p>Escrevem: “minha previsão era…”, “ouvi e vi…”, “a diferença se explica porque…”.</p></div></div>
+          
+          <details class="ptras"><summary>Por trás desta escolha</summary><ul><li><span class="aut">Mortimer</span>Tomada de consciência do perfil conceitual: usar as duas linguagens e saber quando cada uma serve (p. 78–80).</li><li><span class="aut">Freire</span>Práxis: o conhecimento volta ao mundo de onde a pergunta saiu.</li></ul></details>
+        </div></article></div>
+
+    <h3 class="aula-h"><span>Aula 2</span>Quem decide o som? Modelos, regras e o mundo</h3>
+    <div class="momentos"><article class="momento">
+        <div class="tempo">5 min</div>
+        <div class="corpo"><h4>1. Retomar: os sons de casa</h4>
+          <div class="faz"><div><b>O professor</b><p>Pede dois ou três exemplos da tarefa. Volta à pergunta “abaixa o som” e pergunta: agora, como você descreveria isso?</p></div><div><b>Os alunos</b><p>Usam “intensidade” e “frequência” para descrever sons do cotidiano, sem abandonar o jeito de falar de casa.</p></div></div>
+          
+          <details class="ptras"><summary>Por trás desta escolha</summary><ul><li><span class="aut">Mortimer</span>Não se espera que a fala cotidiana desapareça; espera-se que o aluno saiba distingui-la quando o problema pede.</li></ul></details>
+        </div></article><article class="momento">
+        <div class="tempo">12 min</div>
+        <div class="corpo"><h4>2. Quem decide o som? Modo 2</h4>
+          <div class="faz"><div><b>O professor</b><p>Mostra a estrela e pede uma previsão: “Ela vai soar pontuda?”. Toca com a regra vertical (melodia suave) e depois com a regra radial (cinco subidas). Pergunta: o som estava na figura?</p></div><div><b>Os alunos</b><p>Preveem, ouvem, se surpreendem, explicam por que a mesma figura soou diferente. Olham o gráfico da melodia: a figura 2D virou uma função do tempo.</p></div></div>
+          <div class="tela"><b>Na tela</b><a class="btn mini" href="#figura:estrela:vertical">▶ estrela, regra vertical</a> <a class="btn mini" href="#figura:estrela:radial">▶ estrela, regra radial</a></div>
+          <details class="ptras"><summary>Por trás desta escolha</summary><ul><li><span class="aut">Mortimer</span>Conflito cognitivo: a previsão é desmentida por um fato (p. 42–44). O professor precisa ajudar a construir a explicação.</li><li><span class="aut">Rubem Alves</span>A regra é uma rede: retém algumas relações e deixa outras passar (p. 75–88). Trocar a rede muda o que se “pesca”.</li><li><span class="aut">Bunge</span>Uma representação não é o sistema: o som é uma tradução, não uma propriedade da estrela.</li></ul></details>
+        </div></article><article class="momento">
+        <div class="tempo">13 min</div>
+        <div class="corpo"><h4>3. Ouvir um quadro: superposição</h4>
+          <div class="faz"><div><b>O professor</b><p>Abre o <i>Quadrado Negro</i> em tela cheia. Antes de tocar, explica a tela: a linha mostra onde estamos, cada faixa é uma nota, a onda de baixo é a soma. Toca, inverte a regra e toca de novo. Em grupos, cada um escolhe um quadro da galeria e faz uma previsão.</p></div><div><b>Os alunos</b><p>Preveem onde o som será mais forte e mais agudo, testam e explicam com as barras e a soma. Descobrem que a regra ignora a cor.</p></div></div>
+          <div class="tela"><b>Na tela</b><a class="btn mini" href="#quadro:abstracao_quadrado">▶ Quadrado Negro</a> <a class="btn mini" href="#quadro:abstracao_quadrado:escuro">▶ regra invertida</a></div>
+          <details class="ptras"><summary>Por trás desta escolha</summary><ul><li><span class="aut">Heisenberg</span>Ciência e sociedade: a sonificação é usada para acessibilidade (The vOICe) e na divulgação da astronomia. E exige responsabilidade: não prometer acessibilidade que não foi testada (p. 141–154).</li><li><span class="aut">Rubem Alves</span>A regra só lê o brilho; a cor fica fora da rede.</li><li><span class="aut">Vigotski</span>Em grupo, a fala dos colegas ajuda a organizar a explicação.</li></ul></details>
+        </div></article><article class="momento">
+        <div class="tempo">10 min</div>
+        <div class="corpo"><h4>4. Do modelo ao mundo: medir</h4>
+          <div class="faz"><div><b>O professor</b><p>Com celulares e o app gratuito phyphox (ferramenta “Espectro de áudio”), pede que os grupos meçam uma vogal cantada ou um diapasão e comparem com o modo 1. Sem celulares, o professor demonstra.</p></div><div><b>Os alunos</b><p>Veem picos nos harmônicos, ruído e diferenças entre vozes. Discutem por que a medida não é tão “limpa” quanto o modelo.</p></div></div>
+          
+          <details class="ptras"><summary>Por trás desta escolha</summary><ul><li><span class="aut">Bunge</span>O modelo é controlado pela medida: a teoria fala de algo real, que o instrumento registra com limitações.</li><li><span class="aut">Kuhn</span>Se a medida não bate, a primeira suspeita é da medida, não da teoria. Isso é ciência normal; uma anomalia precisa persistir para virar crise.</li></ul></details>
+        </div></article><article class="momento">
+        <div class="tempo">10 min</div>
+        <div class="corpo"><h4>5. Avaliar: uma situação nova</h4>
+          <div class="faz"><div><b>O professor</b><p>Propõe, individualmente: “Um violão e um piano tocam a mesma nota, com o mesmo volume, mas soam diferentes. Explique usando frequência, amplitude e forma da onda.” E: “Um colega diz <i>aumenta o som</i> querendo mais agudo. O que você explicaria a ele?”</p></div><div><b>Os alunos</b><p>Respondem sozinhos, com justificativa. Não basta a palavra certa: é preciso relacionar.</p></div></div>
+          
+          <details class="ptras"><summary>Por trás desta escolha</summary><ul><li><span class="aut">Mortimer</span>Uma resposta certa isolada não prova mudança. Avalia-se a justificativa em contexto novo e a escolha consciente da explicação.</li><li><span class="aut">Davis e Oliveira</span>O que o aluno faz sozinho depois da mediação mostra o que passou do desenvolvimento potencial para o real.</li><li><span class="aut">Skinner (contraponto)</span>Não é um teste de reconhecimento de botões: a pergunta exige transferência para uma situação que não estava na tela.</li></ul></details>
+        </div></article></div>
+
+    <h3 class="sec-aula">A mesma aula, três professores</h3>
+    <p class="muted" style="max-width:820px">A ferramenta é a mesma nos três casos. O que muda é a concepção de ensino, e com ela o que o aluno aprende.</p>
+    <div class="card" style="overflow-x:auto"><table class="tres-prof">
+      <thead><tr><th></th><th>Máquina de reforço<small>Skinner · ambientalismo</small></th><th>Depósito digital<small>Freire · educação bancária</small></th><th>Instrumento de mediação<small>Vigotski · Mortimer · Freire</small></th></tr></thead>
+      <tbody>
+        <tr><th>Abertura</th><td>Desafio no site: quem acertar primeiro ganha ponto.</td><td>O professor projeta e define frequência, amplitude e timbre.</td><td>Pergunta sobre “abaixa o som” e registra as ideias da turma.</td></tr>
+        <tr><th>Uso da tela</th><td>Clicar até acertar o desafio.</td><td>A turma assiste o professor mexer nos controles.</td><td>Duplas testam as próprias previsões; o professor dá pistas.</td></tr>
+        <tr><th>O erro</th><td>É punido ou ignorado.</td><td>É corrigido com a resposta certa.</td><td>É a informação sobre a hipótese do aluno.</td></tr>
+        <tr><th>Avaliação</th><td>Teste sobre os botões e definições.</td><td>Copiar e repetir as definições.</td><td>Explicar uma situação nova, com justificativa.</td></tr>
+        <tr><th>O que se aprende</th><td>A acertar o item.</td><td>A repetir a resposta.</td><td>A pensar o som com a Física, sabendo quando usar cada linguagem.</td></tr>
+      </tbody></table></div>
+
+    <h3 class="sec-aula">O que cada autor do curso faz nesta aula</h3>
+    <div class="autores-aula">
+      <article class="card pad"><span class="badge">Freire</span><p>Problematizar a partir do mundo dos alunos; diálogo com objeto comum; práxis ao levar a pergunta para casa.</p><small>Aula 1: momentos 1, 4, 5</small></article>
+      <article class="card pad"><span class="badge">Davis e Oliveira</span><p>Escolher uma concepção de desenvolvimento: interacionismo, não inatismo nem só reforço. O erro como informação.</p><small>Aula 1: momento 3 · Aula 2: momento 5</small></article>
+      <article class="card pad"><span class="badge">Vigotski</span><p>Mediação por instrumentos e signos (o gráfico, a fala); pistas na zona de desenvolvimento proximal.</p><small>Aula 1: momento 3 · Aula 2: momento 3</small></article>
+      <article class="card pad"><span class="badge">Piaget</span><p>A previsão compromete o esquema; o resultado inesperado provoca desequilíbrio.</p><small>Aula 1: momento 2</small></article>
+      <article class="card pad"><span class="badge">Mortimer</span><p>Explicitar ideias; conflito e lacuna; perfil conceitual de “alto”; avaliar pela justificativa em contexto novo.</p><small>Em todos os momentos</small></article>
+      <article class="card pad"><span class="badge">Rubem Alves</span><p>A regra de tradução é uma rede: pesca algumas relações e deixa outras passar.</p><small>Aula 2: momentos 2, 3</small></article>
+      <article class="card pad"><span class="badge">Bunge</span><p>O modelo não é o sistema; o modelo é controlado pela medida.</p><small>Aula 1: momento 3 · Aula 2: momentos 2, 4</small></article>
+      <article class="card pad"><span class="badge">Kuhn</span><p>Exemplares ensinam a ver; uma medida discrepante ainda não é uma anomalia que derruba a teoria.</p><small>Aula 1: momento 4 · Aula 2: momento 4</small></article>
+      <article class="card pad"><span class="badge">Heisenberg</span><p>Ciência e sociedade: usos reais da sonificação e responsabilidade ao divulgar o que ela faz.</p><small>Aula 2: momento 3</small></article>
+    </div>
+
+    <div class="cols2" style="margin-top:22px">
+      <article class="card pad"><h3>Sinais de que a aprendizagem aconteceu</h3><ul>
+        <li>O aluno varia uma coisa por vez e diz o que ficou constante.</li>
+        <li>Usa “agudo” e “forte” para coisas diferentes, sem que ninguém peça.</li>
+        <li>Explica a estrela dizendo que o som veio da regra.</li>
+        <li>Na pergunta nova (violão e piano), fala de forma da onda e harmônicos, e não só de “som diferente”.</li>
+        <li>Reconhece um limite do modelo quando compara com a medida.</li></ul></article>
+      <article class="card pad"><h3>Adaptações</h3><ul>
+        <li><b>Sem computadores para a turma:</b> o professor opera o site no projetor e a turma faz as previsões no papel. A mediação continua possível.</li>
+        <li><b>Turma grande:</b> grupos de quatro, com papéis (quem opera, quem registra, quem explica).</li>
+        <li><b>Estudantes com deficiência visual:</b> o som e as descrições em texto ajudam, mas a página não foi testada com usuários cegos. Planejar com o professor do AEE antes de usar.</li>
+        <li><b>Estudantes surdos:</b> as barras, o gráfico e o espectro mostram o som visualmente; combinar com o intérprete de Libras.</li></ul></article>
+    </div>
+
+    <article class="card pad ficha-aluno" style="margin-top:22px">
+      <h3>Ficha do aluno</h3>
+      <ol>
+        <li>Antes de ouvir: se a <b>frequência</b> dobrar, o som fica… ____ Por quê? ____</li>
+        <li>Se a <b>amplitude</b> dobrar, o som fica… ____ Por quê? ____</li>
+        <li>Se eu trocar a <b>forma</b> e mantiver a frequência, o que muda? ____</li>
+        <li>O que ouvi e vi (gráfico e espectro): ____</li>
+        <li>Minha previsão era… / Observei… / A diferença se explica porque… ____</li>
+        <li>A estrela vai soar “pontuda”? Antes: ____ Depois: ____ O som estava na figura? ____</li>
+        <li>Um violão e um piano tocam a mesma nota, com o mesmo volume. Por que soam diferentes? ____</li>
+      </ol>
+    </article>
+
+    <h3 class="sec-aula no-print">Os três modos do site</h3>
+    <div class="compare no-print">
       <article class="card"><span class="badge time">Modo 1 · sinal no tempo</span><h3>Forma de onda</h3>
         <dl><dt>O eixo horizontal é</dt><dd>tempo, dentro de um período.</dd><dt>O desenho é</dt><dd>o gráfico de uma função <i>p(t)</i>: uma pressão sonora idealizada.</dd><dt>Física envolvida</dt><dd>frequência, período, amplitude, harmônicos e timbre.</dd></dl>
         <p style="margin-top:14px"><button class="btn" data-ir="onda">Abrir modo 1 →</button></p></article>
@@ -278,13 +446,6 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;font-size:14px;color
       <article class="card"><span class="badge img">Modo 3 · imagem inteira</span><h3>Ouvir um quadro</h3>
         <dl><dt>O eixo horizontal é</dt><dd>tempo da varredura, da esquerda para a direita.</dd><dt>O som é</dt><dd>uma soma de senoides: cada faixa da altura do quadro é uma frequência.</dd><dt>Física envolvida</dt><dd>superposição, espectro e a mesma ideia do espectrograma.</dd></dl>
         <p style="margin-top:14px"><button class="btn" data-ir="quadro">Abrir modo 3 →</button></p></article>
-    </div>
-
-    <div class="card pad" style="margin-top:20px">
-      <div class="cols2">
-        <div><h3>Pergunta de fechamento</h3><p style="margin-top:8px">“O mesmo quadro soou diferente quando mudamos a regra. Então o que o som está representando: o quadro, a regra, ou as duas coisas?”</p></div>
-        <div><h3>Registro individual</h3><p style="margin-top:8px">Cada estudante escreve: <i>minha previsão era…</i>, <i>ouvi…</i>, <i>a diferença se explica porque…</i>. A experiência não substitui essa explicação.</p></div>
-      </div>
     </div>
   </div>
 </section>
@@ -991,6 +1152,11 @@ function aplicarHash(){
 }
 if(!aplicarHash())abrir(store.get('aba','aula'));
 addEventListener('hashchange',aplicarHash);
+/* plano de aula: imprimir com tudo aberto; links internos funcionam mesmo se o hash já for o mesmo */
+const abrirPtras=()=>document.querySelectorAll('.ptras').forEach(d=>d.open=true);
+addEventListener('beforeprint',()=>{abrirPtras();abrir('aula');});
+document.getElementById('imprimir-plano').addEventListener('click',()=>{abrirPtras();window.print();});
+document.querySelectorAll('#p-aula a[href^="#"]').forEach(l=>l.addEventListener('click',e=>{if(location.hash===l.getAttribute('href')){e.preventDefault();aplicarHash();}}));
 let rz=0;addEventListener('resize',()=>{clearTimeout(rz);rz=setTimeout(()=>refazer.forEach(f=>f()),150);});
 })();
 </script>
