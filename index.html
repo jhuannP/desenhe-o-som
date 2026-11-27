@@ -490,7 +490,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;font-size:14px;color
 </section>
 </main>
 
-<footer><div class="wrap">Desenhe o som · Seminário “TICs no ensino de Física”, disciplina 4300356, IF-USP, 2026 · Grupo 6. Ideias de Aymee (partícula percorrendo o desenho), Carol (figuras simples e acessibilidade) e Jhuann (finalidade didática). Protótipo não testado com turmas. · <a href="seminario.html">Página do seminário</a></div></footer>
+<footer><div class="wrap">Desenhe o som · Seminário “TICs no ensino de Física”, disciplina 4300356, IF-USP, 2026 · Grupo 6: Aymee, Carolina, Gabriel e Jhuann. Ideias de Aymee (partícula percorrendo o desenho), Carol (figuras simples e acessibilidade) e Jhuann (finalidade didática). Protótipo não testado com turmas. · <a href="seminario.html">Página do seminário</a></div></footer>
 
 <script>
 /* Dados das obras. As imagens são injetadas pelo script montar.py. */
@@ -791,12 +791,29 @@ $$('.previsao').forEach(p=>{const ta=p.querySelector('textarea'),k='prev:'+p.dat
   galeria();escolher(QUADROS.find(q=>q.id===store.get('obra',''))||QUADROS.find(q=>q.id==='posimpressionismo_noite'));
 })();
 
-/* link direto: #onda, #figura, #quadro, #fisica, #aula ou #quadro:<id-da-obra> */
-const hs=decodeURIComponent(location.hash.slice(1)).split(':');
-if(['aula','onda','figura','quadro','fisica'].includes(hs[0])){abrir(hs[0]);
-  if(hs[0]==='quadro'&&hs[1]){const b=document.querySelector('.obra[data-id="'+hs[1]+'"]');if(b){b.click();}}
-  else requestAnimationFrame(()=>{const bar=document.querySelector('.tabs-bar');window.scrollTo(0,bar.offsetTop);});}
-else abrir(store.get('aba','aula'));
+/* links diretos (usados nos slides):
+   #onda  #onda:square   (sine, harm, tri, square, saw)
+   #figura  #figura:estrela  #figura:estrela:radial   (regras: vertical, invertida, radial)
+   #quadro  #quadro:abstracao_quadrado  #quadro:abstracao_quadrado:escuro
+   #aula  #fisica */
+function aplicarHash(){
+  const hs=decodeURIComponent(location.hash.slice(1)).split(':');
+  if(!['aula','onda','figura','quadro','fisica'].includes(hs[0]))return false;
+  abrir(hs[0]);
+  const topo=()=>requestAnimationFrame(()=>{const bar=document.querySelector('.tabs-bar');window.scrollTo(0,bar.offsetTop);});
+  if(hs[0]==='onda'){const b=document.querySelector('[data-preset="'+hs[1]+'"]');if(b)b.click();topo();}
+  else if(hs[0]==='figura'){
+    if(hs[2]){const r=document.querySelector('#regra');if([...r.options].some(o=>o.value===hs[2])){r.value=hs[2];r.dispatchEvent(new Event('change'));}}
+    const b=document.querySelector('[data-forma="'+hs[1]+'"]');if(b)b.click();topo();}
+  else if(hs[0]==='quadro'&&hs[1]){
+    const r=document.querySelector('#regra-q');const alvo=hs[2]==='escuro'?'escuro':'claro';
+    if(r.value!==alvo){r.value=alvo;r.dispatchEvent(new Event('change'));}
+    const b=document.querySelector('.obra[data-id="'+hs[1]+'"]');if(b)b.click();}
+  else topo();
+  return true;
+}
+if(!aplicarHash())abrir(store.get('aba','aula'));
+addEventListener('hashchange',aplicarHash);
 let rz=0;addEventListener('resize',()=>{clearTimeout(rz);rz=setTimeout(()=>refazer.forEach(f=>f()),150);});
 })();
 </script>
