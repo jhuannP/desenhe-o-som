@@ -120,6 +120,18 @@ select{font:600 14px var(--sans);color:var(--ink);background:var(--card);border:
 textarea{width:100%;min-height:76px;resize:vertical;font:15px/1.45 var(--sans);color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
 
 /* Plano de aula */
+.bncc-tags{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:-4px 0 10px}
+.bncc-tags span{font:700 10px var(--sans);letter-spacing:.12em;color:var(--muted)}
+.bncc-tag{font:700 11px var(--sans);text-decoration:none;color:var(--teal);background:color-mix(in srgb,var(--teal) 13%,transparent);border-radius:999px;padding:3px 9px}
+.bncc-tag:hover{background:color-mix(in srgb,var(--teal) 25%,transparent)}
+.bncc{scroll-margin-top:80px}
+.bncc-h{margin:22px 0 10px;font:600 19px var(--serif)}
+.bncc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.bncc-grid.dois{grid-template-columns:repeat(2,1fr)}
+@media (max-width:820px){.bncc-grid,.bncc-grid.dois{grid-template-columns:1fr}}
+.bncc-grid .card p{font-size:14.5px;margin:8px 0 0}
+.bncc-cod{display:inline-block;font:700 12px var(--sans);letter-spacing:.04em;color:var(--teal)}
+.bncc .cita{font-style:italic;color:var(--ink);border-left:3px solid color-mix(in srgb,var(--teal) 45%,transparent);padding-left:10px}
+.bncc .destaque{border-color:var(--teal);box-shadow:0 0 0 1px var(--teal)}
 .tese-aula{background:var(--ink);color:var(--paper);border-radius:16px;padding:18px 22px;font:600 18px/1.45 var(--serif);margin:4px 0 20px}
 .tese-aula b{color:var(--accent)}
 .ficha-tec{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
@@ -301,7 +313,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;font-size:14px;color
         <li>Relacionar frequência com altura (agudo/grave), amplitude com intensidade (forte/fraco) e forma da onda com timbre.</li>
         <li>Usar T = 1/f e λ = v/f em um exemplo.</li>
         <li>Distinguir o sentido cotidiano de “som alto” do sentido físico.</li>
-        <li>Reconhecer que toda representação digital segue uma regra escolhida por alguém.</li></ul></article>
+        <li>Reconhecer que toda representação digital segue uma regra escolhida por alguém.</li><li><a href="#bncc">BNCC</a>: CG 2, 3, 4 e 5; EM13CNT301, 302 e 303; EM13MAT306.</li></ul></article>
       <article class="card pad"><h4>Antes da aula</h4><ul>
         <li>Perguntar à turma, na aula anterior, que sons fazem parte do seu dia (tema gerador, no sentido de Freire).</li>
         <li>Testar o som do projetor e abrir o site.</li>
@@ -317,34 +329,69 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;font-size:14px;color
         <li>Critério: justificar com as relações físicas, não só usar a palavra certa.</li></ul></article>
     </div>
 
+
+    <section id="bncc" class="bncc">
+      <h3 class="sec-aula">Onde esta aula está na BNCC</h3>
+      <p class="muted" style="max-width:860px">No ensino médio, a BNCC não fixa a série: o número 13 dos códigos “indica que as habilidades descritas podem ser desenvolvidas em qualquer série do Ensino Médio, conforme definição dos currículos”. Abaixo, os trechos que esta estratégia com TIC mobiliza, com o texto da BNCC e o momento da aula em que aparecem.</p>
+
+      <h4 class="bncc-h">Competências gerais da Educação Básica</h4>
+      <div class="bncc-grid dois">
+        <article class="card pad"><span class="bncc-cod">CG 2 · pensamento científico</span><p class="cita">“Exercitar a curiosidade intelectual e recorrer à abordagem própria das ciências, incluindo a investigação, a reflexão, a análise crítica […] para investigar causas, elaborar e testar hipóteses […]”</p><p><b>Na aula:</b> a pergunta inicial e as previsões escritas que depois são testadas.</p></article>
+        <article class="card pad"><span class="bncc-cod">CG 3 · repertório cultural</span><p class="cita">“Valorizar e fruir as diversas manifestações artísticas e culturais, das locais às mundiais […]”</p><p><b>Na aula:</b> a galeria de 27 quadros de 9 escolas artísticas no modo 3.</p></article>
+        <article class="card pad"><span class="bncc-cod">CG 4 · comunicação</span><p class="cita">“Utilizar diferentes linguagens – verbal […], corporal, visual, sonora e digital –, bem como conhecimentos das linguagens artística, matemática e científica […]”</p><p><b>Na aula:</b> o mesmo fenômeno em linguagem cotidiana, gráfica, sonora e matemática; as duas zonas de “alto”.</p></article>
+        <article class="card pad destaque"><span class="bncc-cod">CG 5 · cultura digital</span><p class="cita">“Compreender, utilizar e criar tecnologias digitais de informação e comunicação de forma crítica, significativa, reflexiva e ética […] para se comunicar, acessar e disseminar informações, produzir conhecimentos, resolver problemas […]”</p><p><b>Na aula:</b> é a competência central da estratégia. Não basta usar a tela: o aluno pergunta qual regra a tecnologia seguiu e o que ela deixa de fora (modos 2 e 3).</p></article>
+      </div>
+
+      <h4 class="bncc-h">Ciências da Natureza e suas Tecnologias no ensino médio</h4>
+      <div class="bncc-grid dois">
+        <article class="card pad destaque"><span class="bncc-cod">Competência específica 3</span><p class="cita">“Investigar situações-problema e avaliar aplicações do conhecimento científico e tecnológico e suas implicações no mundo […] e comunicar suas descobertas e conclusões a públicos variados […] por meio de diferentes mídias e tecnologias digitais de informação e comunicação (TDIC).”</p><p><b>Na aula:</b> investigar o som com o site e com o celular, e discutir os usos da sonificação (acessibilidade, astronomia).</p></article>
+        <article class="card pad"><span class="bncc-cod">EM13CNT301</span><p class="cita">“Construir questões, elaborar hipóteses, previsões e estimativas, empregar instrumentos de medição e representar e interpretar modelos explicativos, dados e/ou resultados experimentais para construir, avaliar e justificar conclusões […]”</p><p><b>Na aula:</b> previsões escritas (aula 1, momento 2); estrela com duas regras (aula 2, momento 2); medir com o phyphox e comparar com o modelo (aula 2, momento 4); avaliação final.</p></article>
+        <article class="card pad"><span class="bncc-cod">EM13CNT302</span><p class="cita">“Comunicar, para públicos variados, em diversos contextos, resultados de análises, pesquisas e/ou experimentos, elaborando e/ou interpretando textos, gráficos, tabelas, símbolos, códigos, sistemas de classificação e equações, por meio de diferentes linguagens, mídias, tecnologias digitais de informação e comunicação (TDIC) […]”</p><p><b>Na aula:</b> ler o gráfico da onda, o espectro e o sonograma; registrar na ficha; explicar o violão e o piano.</p></article>
+        <article class="card pad"><span class="bncc-cod">EM13CNT303</span><p class="cita">“Interpretar textos de divulgação científica que tratem de temáticas das Ciências da Natureza, disponíveis em diferentes mídias […] visando construir estratégias de seleção de fontes confiáveis de informações.”</p><p><b>Na aula:</b> discutir as sonificações da NASA e o The vOICe: que regra cada uma usa? O que ela promete e o que de fato mostra?</p></article>
+      </div>
+
+      <h4 class="bncc-h">Matemática e suas Tecnologias no ensino médio</h4>
+      <div class="bncc-grid">
+        <article class="card pad destaque"><span class="bncc-cod">EM13MAT306</span><p class="cita">“Resolver e elaborar problemas em contextos que envolvem fenômenos periódicos reais (ondas sonoras, fases da lua, movimentos cíclicos, entre outros) e comparar suas representações com as funções seno e cosseno, no plano cartesiano, com ou sem apoio de aplicativos de álgebra e geometria.”</p><p><b>Na aula:</b> o modo 1 é exatamente isso: a senoide como representação de um fenômeno periódico real, com período T = 1/f, e outras formas como soma de senoides (harmônicos). Uma ponte natural com o professor de Matemática.</p></article>
+      </div>
+
+      <h4 class="bncc-h">O que o aluno já deve ter visto no ensino fundamental</h4>
+      <div class="bncc-grid">
+        <article class="card pad"><span class="bncc-cod">EF03CI01 · 3º ano, cerca de 8 anos</span><p class="cita">“Produzir diferentes sons a partir da vibração de variados objetos e identificar variáveis que influem nesse fenômeno.”</p><p><b>Na aula:</b> ponto de partida. Retomar: o som vem de uma vibração.</p></article>
+        <article class="card pad"><span class="bncc-cod">EF03CI03 · 3º ano</span><p class="cita">“Discutir hábitos necessários para a manutenção da saúde auditiva e visual considerando as condições do ambiente em termos de som e luz.”</p><p><b>Na aula:</b> volume moderado nos fones; amplitude e intensidade ligadas ao cuidado com a audição.</p></article>
+        <article class="card pad"><span class="bncc-cod">EF09CI05 · 9º ano, cerca de 14 anos</span><p class="cita">“Investigar os principais mecanismos envolvidos na transmissão e recepção de imagem e som que revolucionaram os sistemas de comunicação humana.”</p><p><b>Na aula:</b> a sonificação também é transmissão de informação: imagem vira som por uma regra, como num sistema de comunicação.</p></article>
+      </div>
+      <p class="small muted" style="margin-top:12px">Fonte: Brasil, Ministério da Educação. <i>Base Nacional Comum Curricular</i>. Brasília: MEC, 2018. As idades são as esperadas para quem entra no 1º ano do fundamental aos 6 anos; as habilidades da BNCC não indicam idade.</p>
+    </section>
+
     <h3 class="aula-h"><span>Aula 1</span>Do cotidiano ao modelo</h3>
     <div class="momentos"><article class="momento">
         <div class="tempo">8 min</div>
-        <div class="corpo"><h4>1. Problematizar: o som do dia a dia</h4>
+        <div class="corpo"><h4>1. Problematizar: o som do dia a dia</h4><div class="bncc-tags" aria-label="Códigos da BNCC trabalhados"><span>BNCC</span><a class="bncc-tag" href="#bncc">CG 2</a><a class="bncc-tag" href="#bncc">EM13CNT301</a></div>
           <div class="faz"><div><b>O professor</b><p>Pergunta, sem dar a resposta: “Quando alguém pede <i>abaixa o som</i>, o que muda no som? E quando dizemos que uma nota é <i>alta</i>?”. Anota no quadro as palavras da turma (alto, forte, grave, agudo, volume…), sem corrigir.</p></div><div><b>Os alunos</b><p>Falam de sons que conhecem: música, fone de ouvido, barulho da escola. Discordam entre si sobre o que é “alto”.</p></div></div>
           <p class="cuid"><b>Cuidado:</b> corrigir agora transforma a pergunta em teste. O objetivo deste momento é tornar visíveis as ideias da turma.</p>
           <details class="ptras"><summary>Por trás desta escolha</summary><ul><li><span class="aut">Freire</span>Educação problematizadora: o conteúdo parte do mundo dos alunos e de uma pergunta, não de uma definição depositada (p. 65–87).</li><li><span class="aut">Mortimer</span>As concepções prévias precisam aparecer antes de qualquer explicação. “Alto” já tem duas zonas no perfil: forte (cotidiano) e agudo (música).</li><li><span class="aut">Pesquisa</span>Muitos estudantes pensam o som como uma “coisa” que viaja (Eshach e Schwartz, 2006). Vale ouvir se essa ideia aparece.</li></ul></details>
         </div></article><article class="momento">
         <div class="tempo">5 min</div>
-        <div class="corpo"><h4>2. Prever por escrito</h4>
+        <div class="corpo"><h4>2. Prever por escrito</h4><div class="bncc-tags" aria-label="Códigos da BNCC trabalhados"><span>BNCC</span><a class="bncc-tag" href="#bncc">EM13CNT301</a></div>
           <div class="faz"><div><b>O professor</b><p>Entrega a ficha (no fim desta página) e pede três previsões individuais: o que acontece com o som se a frequência dobrar? E se a amplitude dobrar? E se a forma mudar, com a mesma frequência?</p></div><div><b>Os alunos</b><p>Escrevem antes de ouvir. Ninguém toca no computador ainda.</p></div></div>
           <div class="tela"><b>Na tela</b>campo <i>Antes de ouvir: sua previsão</i>, presente em cada modo.</div>
           <details class="ptras"><summary>Por trás desta escolha</summary><ul><li><span class="aut">Mortimer</span>Explicitar a ideia antes do teste é o que permite que o resultado seja um conflito, e não só uma curiosidade (p. 42–44).</li><li><span class="aut">Piaget</span>A previsão compromete o esquema do aluno; se o resultado não couber nele, há desequilíbrio, motor da equilibração (Davis e Oliveira).</li></ul></details>
         </div></article><article class="momento">
         <div class="tempo">15 min</div>
-        <div class="corpo"><h4>3. Explorar em duplas: modo 1</h4>
+        <div class="corpo"><h4>3. Explorar em duplas: modo 1</h4><div class="bncc-tags" aria-label="Códigos da BNCC trabalhados"><span>BNCC</span><a class="bncc-tag" href="#bncc">CG 5</a><a class="bncc-tag" href="#bncc">EM13MAT306</a><a class="bncc-tag" href="#bncc">EM13CNT302</a><a class="bncc-tag" href="#bncc">EF03CI03</a></div>
           <div class="faz"><div><b>O professor</b><p>Circula entre as duplas com perguntas-pista, não respostas: “O que você mudou? O que ficou igual? O que o gráfico mostrou?”. Quem resolve sozinho recebe um desafio novo; quem trava recebe uma pista a mais.</p></div><div><b>Os alunos</b><p>Seguem três tarefas: (A) mudar <b>só</b> a frequência, com o botão ×2; (B) mudar <b>só</b> a amplitude; (C) trocar a forma (senoide → quadrada → dente de serra) e olhar o espectro. Registram o que ouviram e o que viram.</p></div></div>
-          <div class="tela"><b>Na tela</b><a class="btn mini" href="#onda:sine">▶ abrir o modo 1 na senoide</a></div><p class="cuid"><b>Cuidado:</b> a bolinha anda em câmera lenta; a frequência real é centenas de vezes por segundo.</p>
+          <div class="tela"><b>Na tela</b><a class="btn mini" href="#onda:sine">▶ abrir o modo 1 na senoide</a></div><p class="cuid"><b>Cuidado:</b> a bolinha anda em câmera lenta; a frequência real é centenas de vezes por segundo. Volume moderado nos fones e caixas: é um bom momento para retomar a saúde auditiva (EF03CI03).</p>
           <details class="ptras"><summary>Por trás desta escolha</summary><ul><li><span class="aut">Vigotski</span>Zona de desenvolvimento proximal: a pista certa, do professor ou do colega, permite fazer com ajuda o que ainda não se faz sozinho. O gráfico é um signo que medeia o pensamento.</li><li><span class="aut">Davis e Oliveira</span>Interacionismo: o aluno age sobre o objeto e com os outros. O erro informa a hipótese que ele construiu.</li><li><span class="aut">Skinner (contraponto)</span>Nada de “acertou, ganha ponto”: aqui o objetivo é explicar o que se ouve, não acertar o botão.</li><li><span class="aut">Bunge</span>O gráfico é um modelo idealizado da pressão no tempo, não a corda nem o ar. Vale dizer isso em voz alta.</li></ul></details>
         </div></article><article class="momento">
         <div class="tempo">15 min</div>
-        <div class="corpo"><h4>4. Sistematizar: dar nome e relação</h4>
+        <div class="corpo"><h4>4. Sistematizar: dar nome e relação</h4><div class="bncc-tags" aria-label="Códigos da BNCC trabalhados"><span>BNCC</span><a class="bncc-tag" href="#bncc">EM13MAT306</a><a class="bncc-tag" href="#bncc">EM13CNT302</a></div>
           <div class="faz"><div><b>O professor</b><p>Organiza no quadro, a partir dos registros: <b>frequência ↔ altura</b> (agudo/grave) e período T = 1/f; <b>amplitude ↔ intensidade</b> (forte/fraco; a intensidade cresce com o quadrado da amplitude); <b>forma ↔ timbre</b> (os harmônicos). Resolve um exemplo: Lá de 440 Hz no ar (v ≈ 343 m/s) tem T ≈ 2,27 ms e λ = v/f ≈ 0,78 m.</p></div><div><b>Os alunos</b><p>Comparam com as previsões: quem acertou e por quê, quem errou e por quê. Fazem o exemplo para outra nota.</p></div></div>
           
           <details class="ptras"><summary>Por trás desta escolha</summary><ul><li><span class="aut">Mortimer</span>O conflito, sozinho, não basta (p. 44). Onde houve lacuna, e não conflito, é o professor quem introduz o conceito.</li><li><span class="aut">Kuhn</span>O problema resolvido é um exemplar: ensina a “ver” o som como a Física vê (p. 29–105).</li><li><span class="aut">Freire</span>Diálogo não é ausência de professor: ele organiza e oferece o conhecimento sistematizado, junto com a turma.</li></ul></details>
         </div></article><article class="momento">
         <div class="tempo">7 min</div>
-        <div class="corpo"><h4>5. Registrar e levar para casa</h4>
+        <div class="corpo"><h4>5. Registrar e levar para casa</h4><div class="bncc-tags" aria-label="Códigos da BNCC trabalhados"><span>BNCC</span><a class="bncc-tag" href="#bncc">EM13CNT302</a><a class="bncc-tag" href="#bncc">CG 4</a></div>
           <div class="faz"><div><b>O professor</b><p>Pede que cada um complete a ficha e propõe a tarefa de casa: observar três sons e descrevê-los duas vezes, com as palavras do dia a dia e com as da Física.</p></div><div><b>Os alunos</b><p>Escrevem: “minha previsão era…”, “ouvi e vi…”, “a diferença se explica porque…”.</p></div></div>
           
           <details class="ptras"><summary>Por trás desta escolha</summary><ul><li><span class="aut">Mortimer</span>Tomada de consciência do perfil conceitual: usar as duas linguagens e saber quando cada uma serve (p. 78–80).</li><li><span class="aut">Freire</span>Práxis: o conhecimento volta ao mundo de onde a pergunta saiu.</li></ul></details>
@@ -353,31 +400,31 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;font-size:14px;color
     <h3 class="aula-h"><span>Aula 2</span>Quem decide o som? Modelos, regras e o mundo</h3>
     <div class="momentos"><article class="momento">
         <div class="tempo">5 min</div>
-        <div class="corpo"><h4>1. Retomar: os sons de casa</h4>
+        <div class="corpo"><h4>1. Retomar: os sons de casa</h4><div class="bncc-tags" aria-label="Códigos da BNCC trabalhados"><span>BNCC</span><a class="bncc-tag" href="#bncc">CG 4</a></div>
           <div class="faz"><div><b>O professor</b><p>Pede dois ou três exemplos da tarefa. Volta à pergunta “abaixa o som” e pergunta: agora, como você descreveria isso?</p></div><div><b>Os alunos</b><p>Usam “intensidade” e “frequência” para descrever sons do cotidiano, sem abandonar o jeito de falar de casa.</p></div></div>
           
           <details class="ptras"><summary>Por trás desta escolha</summary><ul><li><span class="aut">Mortimer</span>Não se espera que a fala cotidiana desapareça; espera-se que o aluno saiba distingui-la quando o problema pede.</li></ul></details>
         </div></article><article class="momento">
         <div class="tempo">12 min</div>
-        <div class="corpo"><h4>2. Quem decide o som? Modo 2</h4>
+        <div class="corpo"><h4>2. Quem decide o som? Modo 2</h4><div class="bncc-tags" aria-label="Códigos da BNCC trabalhados"><span>BNCC</span><a class="bncc-tag" href="#bncc">CG 5</a><a class="bncc-tag" href="#bncc">EM13CNT301</a></div>
           <div class="faz"><div><b>O professor</b><p>Mostra a estrela e pede uma previsão: “Ela vai soar pontuda?”. Toca com a regra vertical (melodia suave) e depois com a regra radial (cinco subidas). Pergunta: o som estava na figura?</p></div><div><b>Os alunos</b><p>Preveem, ouvem, se surpreendem, explicam por que a mesma figura soou diferente. Olham o gráfico da melodia: a figura 2D virou uma função do tempo.</p></div></div>
           <div class="tela"><b>Na tela</b><a class="btn mini" href="#figura:estrela:vertical">▶ estrela, regra vertical</a> <a class="btn mini" href="#figura:estrela:radial">▶ estrela, regra radial</a></div>
           <details class="ptras"><summary>Por trás desta escolha</summary><ul><li><span class="aut">Mortimer</span>Conflito cognitivo: a previsão é desmentida por um fato (p. 42–44). O professor precisa ajudar a construir a explicação.</li><li><span class="aut">Rubem Alves</span>A regra é uma rede: retém algumas relações e deixa outras passar (p. 75–88). Trocar a rede muda o que se “pesca”.</li><li><span class="aut">Bunge</span>Uma representação não é o sistema: o som é uma tradução, não uma propriedade da estrela.</li></ul></details>
         </div></article><article class="momento">
         <div class="tempo">13 min</div>
-        <div class="corpo"><h4>3. Ouvir um quadro: superposição</h4>
+        <div class="corpo"><h4>3. Ouvir um quadro: superposição</h4><div class="bncc-tags" aria-label="Códigos da BNCC trabalhados"><span>BNCC</span><a class="bncc-tag" href="#bncc">CG 3</a><a class="bncc-tag" href="#bncc">CG 5</a><a class="bncc-tag" href="#bncc">EM13CNT302</a><a class="bncc-tag" href="#bncc">EM13CNT303</a></div>
           <div class="faz"><div><b>O professor</b><p>Abre o <i>Quadrado Negro</i> em tela cheia. Antes de tocar, explica a tela: a linha mostra onde estamos, cada faixa é uma nota, a onda de baixo é a soma. Toca, inverte a regra e toca de novo. Em grupos, cada um escolhe um quadro da galeria e faz uma previsão.</p></div><div><b>Os alunos</b><p>Preveem onde o som será mais forte e mais agudo, testam e explicam com as barras e a soma. Descobrem que a regra ignora a cor.</p></div></div>
           <div class="tela"><b>Na tela</b><a class="btn mini" href="#quadro:abstracao_quadrado">▶ Quadrado Negro</a> <a class="btn mini" href="#quadro:abstracao_quadrado:escuro">▶ regra invertida</a></div>
           <details class="ptras"><summary>Por trás desta escolha</summary><ul><li><span class="aut">Heisenberg</span>Ciência e sociedade: a sonificação é usada para acessibilidade (The vOICe) e na divulgação da astronomia. E exige responsabilidade: não prometer acessibilidade que não foi testada (p. 141–154).</li><li><span class="aut">Rubem Alves</span>A regra só lê o brilho; a cor fica fora da rede.</li><li><span class="aut">Vigotski</span>Em grupo, a fala dos colegas ajuda a organizar a explicação.</li></ul></details>
         </div></article><article class="momento">
         <div class="tempo">10 min</div>
-        <div class="corpo"><h4>4. Do modelo ao mundo: medir</h4>
+        <div class="corpo"><h4>4. Do modelo ao mundo: medir</h4><div class="bncc-tags" aria-label="Códigos da BNCC trabalhados"><span>BNCC</span><a class="bncc-tag" href="#bncc">EM13CNT301</a><a class="bncc-tag" href="#bncc">CE 3 (CNT)</a></div>
           <div class="faz"><div><b>O professor</b><p>Com celulares e o app gratuito phyphox (ferramenta “Espectro de áudio”), pede que os grupos meçam uma vogal cantada ou um diapasão e comparem com o modo 1. Sem celulares, o professor demonstra.</p></div><div><b>Os alunos</b><p>Veem picos nos harmônicos, ruído e diferenças entre vozes. Discutem por que a medida não é tão “limpa” quanto o modelo.</p></div></div>
           
           <details class="ptras"><summary>Por trás desta escolha</summary><ul><li><span class="aut">Bunge</span>O modelo é controlado pela medida: a teoria fala de algo real, que o instrumento registra com limitações.</li><li><span class="aut">Kuhn</span>Se a medida não bate, a primeira suspeita é da medida, não da teoria. Isso é ciência normal; uma anomalia precisa persistir para virar crise.</li></ul></details>
         </div></article><article class="momento">
         <div class="tempo">10 min</div>
-        <div class="corpo"><h4>5. Avaliar: uma situação nova</h4>
+        <div class="corpo"><h4>5. Avaliar: uma situação nova</h4><div class="bncc-tags" aria-label="Códigos da BNCC trabalhados"><span>BNCC</span><a class="bncc-tag" href="#bncc">EM13CNT301</a><a class="bncc-tag" href="#bncc">EM13CNT302</a></div>
           <div class="faz"><div><b>O professor</b><p>Propõe, individualmente: “Um violão e um piano tocam a mesma nota, com o mesmo volume, mas soam diferentes. Explique usando frequência, amplitude e forma da onda.” E: “Um colega diz <i>aumenta o som</i> querendo mais agudo. O que você explicaria a ele?”</p></div><div><b>Os alunos</b><p>Respondem sozinhos, com justificativa. Não basta a palavra certa: é preciso relacionar.</p></div></div>
           
           <details class="ptras"><summary>Por trás desta escolha</summary><ul><li><span class="aut">Mortimer</span>Uma resposta certa isolada não prova mudança. Avalia-se a justificativa em contexto novo e a escolha consciente da explicação.</li><li><span class="aut">Davis e Oliveira</span>O que o aluno faz sozinho depois da mediação mostra o que passou do desenvolvimento potencial para o real.</li><li><span class="aut">Skinner (contraponto)</span>Não é um teste de reconhecimento de botões: a pergunta exige transferência para uma situação que não estava na tela.</li></ul></details>
@@ -1150,9 +1197,11 @@ function aplicarHash(){
   else topo();
   return true;
 }
-if(!aplicarHash())abrir(store.get('aba','aula'));
+if(location.hash==='#bncc'){abrir('aula');requestAnimationFrame(()=>document.getElementById('bncc').scrollIntoView());}
+else if(!aplicarHash())abrir(store.get('aba','aula'));
 addEventListener('hashchange',aplicarHash);
 /* plano de aula: imprimir com tudo aberto; links internos funcionam mesmo se o hash já for o mesmo */
+document.querySelectorAll('a[href="#bncc"]').forEach(l=>l.addEventListener('click',e=>{e.preventDefault();abrir('aula');requestAnimationFrame(()=>document.getElementById('bncc').scrollIntoView({behavior:'smooth',block:'start'}));}));
 const abrirPtras=()=>document.querySelectorAll('.ptras').forEach(d=>d.open=true);
 addEventListener('beforeprint',()=>{abrirPtras();abrir('aula');});
 document.getElementById('imprimir-plano').addEventListener('click',()=>{abrirPtras();window.print();});
