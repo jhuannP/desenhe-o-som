@@ -147,7 +147,24 @@ textarea{width:100%;min-height:76px;resize:vertical;font:15px/1.45 var(--sans);c
 .obra span i{font-style:normal;color:var(--muted)}
 .escola-head{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;margin-top:22px}
 .escola-head h3{font-size:22px}
-.quadro-stage{display:flex;justify-content:center;background:#0d0f14;border-radius:12px;padding:10px}
+.quadro-stage{display:flex;justify-content:center;align-items:flex-start;gap:10px;background:#0d0f14;border-radius:12px;padding:10px}
+.quadro-stage #cv-quadro{flex:0 1 auto;min-width:0;max-width:68%}
+.quadro-stage #cv-lado{flex:1 1 0;min-width:110px;max-width:320px;width:100%;max-height:none;cursor:default;border-radius:4px}
+.soma-box{background:#0d0f14;border-radius:12px;padding:8px 10px;margin-top:8px}
+.fs-barra{display:none}
+#palco-q:fullscreen{background:#0d0f14;display:flex;flex-direction:column;gap:10px;padding:14px 18px;height:100vh;box-sizing:border-box}
+#palco-q:fullscreen .fs-barra{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;color:#ece7dc}
+#palco-q:fullscreen .fs-tit b{font:600 24px var(--serif);margin-right:12px}
+#palco-q:fullscreen .fs-tit span{color:#a4adbd;font-size:15px}
+#palco-q:fullscreen .fs-bt{display:flex;gap:8px}
+#palco-q:fullscreen .fs-bt .btn{background:#181e2b;color:#ece7dc;border-color:#2c3446;min-width:0}
+#palco-q:fullscreen .fs-bt .btn.primary{background:#ff7a50;border-color:#ff7a50;color:#1a0d07}
+#palco-q:fullscreen .quadro-stage{flex:1 1 auto;min-height:0;align-items:center;padding:0}
+#palco-q:fullscreen #cv-quadro{max-height:calc(100vh - 290px);max-width:74%}
+#palco-q:fullscreen #cv-lado{max-width:380px}
+#palco-q:fullscreen .soma-box{flex:none;margin:0}
+#palco-q:fullscreen .soma-box canvas{max-height:170px;width:100%;object-fit:contain}
+.soma-box canvas{width:100%;height:auto;display:block}
 .explica{margin-top:30px}
 .explica .exp-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:14px}
 .explica .exp-head p{margin:.4em 0 0;color:var(--muted);max-width:680px}
@@ -411,7 +428,9 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;font-size:14px;color
       <div class="stack">
         <div class="card stage">
           <div class="stage-top"><span>↑ topo do quadro → agudo · base → grave</span><span>varredura da esquerda para a direita →</span></div>
-          <div class="quadro-stage"><canvas id="cv-quadro" width="560" height="420" aria-label="Quadro selecionado com a linha de varredura. Toque para pular para um ponto."></canvas></div>
+          <div id="palco-q"><div class="fs-barra"><div class="fs-tit"><b id="fs-obra"></b><span id="fs-regra"></span></div><div class="fs-bt"><button class="btn primary" id="fs-play" type="button">▶ Ouvir</button><button class="btn" id="fs-inverter" type="button">⇄ Inverter regra</button><button class="btn" id="fs-sair" type="button">✕ Sair</button></div></div>
+          <div class="quadro-stage"><canvas id="cv-quadro" width="560" height="420" aria-label="Quadro selecionado com a linha de varredura. Toque para pular para um ponto."></canvas><canvas id="cv-lado" width="300" height="420" aria-label="Cada faixa do quadro é uma nota: o comprimento da barra é o volume dessa nota no instante atual"></canvas></div>
+          <div class="soma-box"><canvas id="cv-soma" width="1200" height="170" aria-label="Soma das senoides que estão soando: o som do instante atual"></canvas></div></div>
           <div class="stage-foot"><span>Toque ou clique no quadro para pular para aquele ponto.</span><button class="btn ghost" id="tela-cheia" type="button">⛶ Tela cheia</button></div>
         </div>
         <div class="card stage">
@@ -768,7 +787,7 @@ $$('.previsao').forEach(p=>{const ta=p.querySelector('textarea'),k='prev:'+p.dat
   function mapa(){if(!lum){M=null;return;}const N=+faixas.value;M=new Float32Array(COLS*N);
     const ord=Float32Array.from(lum).sort(),mn=ord[Math.floor(.08*ord.length)],mxl=ord[Math.floor(.97*ord.length)],span=Math.max(.15,mxl-mn);
     for(let i=0;i<lum.length;i++){let v=Math.max(0,Math.min(1,(lum[i]-mn)/span));if(regra.value==='escuro')v=1-v;v=v<.18?0:Math.pow((v-.18)/.82,1.8);M[i]=v;}
-    sonograma();descrever();if(window.__expRefazer)window.__expRefazer();}
+    sonograma();descrever();if(window.__expRefazer)window.__expRefazer();if(typeof pintarLado==='function'){ultC=0;pintarLado(0,false);pintarSoma(null);}}
   const freqs=()=>{const N=+faixas.value;if(N===20){const PEN=[0,2,4,7,9];return Array.from({length:N},(_,b)=>110*Math.pow(2,(12*Math.floor(b/5)+PEN[b%5])/12));}return Array.from({length:N},(_,b)=>110*Math.pow(2,4*b/(N-1)));};
   function sonograma(){const N=+faixas.value,w=so.width,h=so.height,cw=w/COLS,ch=h/N;const off=document.createElement('canvas');off.width=w;off.height=h;const o=off.getContext('2d');
     o.fillStyle='#0d0f14';o.fillRect(0,0,w,h);
@@ -796,15 +815,41 @@ $$('.previsao').forEach(p=>{const ta=p.querySelector('textarea'),k='prev:'+p.dat
     img=new Image();img.decoding='async';img.onload=()=>{const k=Math.min(1,900/Math.max(img.naturalWidth,img.naturalHeight));cv.width=Math.round(img.naturalWidth*k);cv.height=Math.round(img.naturalHeight*k);
       cv.setAttribute('aria-label',q.titulo+', de '+q.artista+'. Linha de varredura. Toque para pular para um ponto.');pintarQuadro(null);analisar();if(lum)st.textContent='“'+q.titulo+'” pronto. Faça sua previsão e ouça.';};
     img.onerror=()=>{st.textContent='Não foi possível carregar a imagem.';};img.src=src(q);}
+
+  /* painel ao vivo: cada linha é uma nota (barras) e a soma (onda) */
+  const lado=$('#cv-lado'),lx=lado.getContext('2d'),soma=$('#cv-soma'),smx=soma.getContext('2d');let ultC=0;
+  function pintarLado(c,ativo){if(!M)return;const n=+faixas.value,fq=freqs();if(c==null)c=ultC;else ultC=c;
+    const dpr=Math.min(2,window.devicePixelRatio||1),hp=Math.max(80,cv.getBoundingClientRect().height),wp=lado.clientWidth||200;
+    lado.style.height=hp+'px';if(lado.width!==Math.round(wp*dpr)||lado.height!==Math.round(hp*dpr)){lado.width=Math.round(wp*dpr);lado.height=Math.round(hp*dpr);}
+    const W=lado.width,H=lado.height;lx.fillStyle='#0d0f14';lx.fillRect(0,0,W,H);
+    const lab=Math.min(W*.42,62*dpr),bw=W-lab-4*dpr,hh=H/n,fz=Math.max(8,Math.min(12*dpr,hh*.8));
+    lx.font=fz+'px system-ui, sans-serif';lx.textBaseline='middle';
+    for(let r=0;r<n;r++){const band=n-1-r,a=M[band*COLS+c],y=r*hh;
+      lx.fillStyle='rgba(255,255,255,.05)';lx.fillRect(0,y+1,bw,Math.max(1,hh-2));
+      lx.fillStyle=ativo?'#ff7a50':'rgba(255,122,80,.35)';lx.fillRect(0,y+1,bw*a,Math.max(1,hh-2));
+      if(hh*1>=fz*1.1||r%Math.ceil(fz*1.2/hh)===0){lx.fillStyle=a>0.02&&ativo?'#ece7dc':'#7d8597';lx.fillText(Math.round(fq[band])+' Hz',bw+5*dpr,y+hh/2);}}
+    if(!ativo){lx.fillStyle='rgba(13,15,20,.55)';lx.fillRect(0,0,W,H);lx.fillStyle='#ece7dc';lx.textAlign='center';lx.font=(13*dpr)+'px system-ui, sans-serif';
+      lx.fillText('cada linha',W/2,H/2-10*dpr);lx.fillText('é uma nota',W/2,H/2+10*dpr);lx.textAlign='left';}}
+  function pintarSoma(c,t){const W=soma.width,H=soma.height,n=+faixas.value;smx.fillStyle='#0d0f14';smx.fillRect(0,0,W,H);
+    const T0=40,CY=T0+(H-T0)/2,AMP=(H-T0)*.44;smx.strokeStyle='#2a3142';smx.lineWidth=1;smx.beginPath();smx.moveTo(0,CY);smx.lineTo(W,CY);smx.stroke();
+    smx.font='22px system-ui, sans-serif';smx.textBaseline='top';
+    if(!M||c==null){smx.fillStyle='#7d8597';smx.fillText('A soma das notas aparece aqui quando o quadro toca.',16,12);return;}
+    const at=[];for(let b=0;b<n;b++){const a=M[b*COLS+c];if(a>0.02)at.push([a,b]);}
+    const f=b=>2+12*b/Math.max(1,n-1);let mx=.001;const sv=new Float32Array(W);
+    for(let x=0;x<W;x++){let v=0;for(const [a,b] of at)v+=a*Math.sin(2*Math.PI*f(b)*x/W-t*4+b);sv[x]=v;mx=Math.max(mx,Math.abs(v));}
+    at.slice().sort((p,q)=>q[0]-p[0]).slice(0,3).forEach(([a,b])=>{smx.strokeStyle='rgba(240,194,79,.35)';smx.lineWidth=2;smx.beginPath();for(let x=0;x<W;x+=2){const y=CY-(a/mx)*AMP*.9*Math.sin(2*Math.PI*f(b)*x/W-t*4+b);x?smx.lineTo(x,y):smx.moveTo(x,y);}smx.stroke();});
+    smx.strokeStyle='#ff7a50';smx.lineWidth=3;smx.beginPath();for(let x=0;x<W;x++){const y=CY-sv[x]/mx*AMP;x?smx.lineTo(x,y):smx.moveTo(x,y);}smx.stroke();
+    smx.fillStyle='#ece7dc';smx.fillText('soma de '+at.length+' notas = o som deste instante',16,10);
+    smx.fillStyle='#7d8597';smx.textAlign='right';smx.fillText('em amarelo, as 3 notas mais fortes · ondas em escala reduzida',W-16,10);smx.textAlign='left';}
   /* áudio */
   function montar(){const fs=freqs();mestre=AC.createGain();mestre.gain.value=0;mestre.connect(saida);oscs=[];ganhos=[];
     fs.forEach(f=>{const o=AC.createOscillator(),g=AC.createGain();o.type='sine';o.frequency.value=f;g.gain.value=0;o.connect(g).connect(mestre);o.start();oscs.push(o);ganhos.push(g);});
     mestre.gain.setTargetAtTime(vol.value/100*.5,AC.currentTime,.05);}
   function desmontar(){if(!mestre)return;const m=mestre,os=oscs;m.gain.setTargetAtTime(0,AC.currentTime,.03);setTimeout(()=>{os.forEach(o=>{try{o.stop()}catch(e){}});m.disconnect();},250);mestre=null;oscs=[];ganhos=[];}
   function tocarColuna(c){const N=ganhos.length;let s=0;for(let b=0;b<N;b++)s+=M[b*COLS+c];const k=1/Math.max(2.5,s),t=AC.currentTime;for(let b=0;b<N;b++)ganhos[b].gain.setTargetAtTime(M[b*COLS+c]*k,t,.025);}
-  function passo(){const u=Math.min(1,desloc+(performance.now()-ini)/(dur.value*1000));tocarColuna(Math.min(COLS-1,Math.floor(u*COLS)));pintarQuadro(u);pintarSono(u);
+  function passo(){const u=Math.min(1,desloc+(performance.now()-ini)/(dur.value*1000));tocarColuna(Math.min(COLS-1,Math.floor(u*COLS)));pintarQuadro(u);pintarSono(u);const cc=Math.min(COLS-1,Math.floor(u*COLS));pintarLado(cc,true);pintarSoma(cc,performance.now()/1000);
     if(u<1)raf=requestAnimationFrame(passo);else{parar();st.textContent='Varredura concluída. O que você ouviu confirma a previsão?';}}
-  function parar(){if(!tocando)return;tocando=false;cancelAnimationFrame(raf);desmontar();play.textContent='▶ Ouvir quadro';play.setAttribute('aria-pressed','false');pintarQuadro(null);pintarSono(null);}
+  function parar(){if(!tocando)return;tocando=false;cancelAnimationFrame(raf);desmontar();play.textContent='▶ Ouvir quadro';play.setAttribute('aria-pressed','false');pintarQuadro(null);pintarSono(null);pintarLado(null,false);}
   paradas.quadro=parar;
   async function tocar(de=0){if(!M){st.textContent='Escolha um quadro na galeria.';return;}pararTudo('quadro');if(tocando)parar();await audio();montar();desloc=de;ini=performance.now();tocando=true;
     play.textContent='■ Parar';play.setAttribute('aria-pressed','true');st.textContent='Tocando “'+atual.titulo+'”.';passo();}
@@ -814,7 +859,14 @@ $$('.previsao').forEach(p=>{const ta=p.querySelector('textarea'),k='prev:'+p.dat
   faixas.addEventListener('change',()=>{parar();analisar();});
   dur.addEventListener('input',()=>$('#o-dur-q').textContent=dur.value+' s');
   vol.addEventListener('input',()=>{$('#o-vol-q').textContent=vol.value+'%';if(mestre)mestre.gain.setTargetAtTime(vol.value/100*.5,AC.currentTime,.05);});
-  $('#tela-cheia').addEventListener('click',()=>{const el=$('.quadro-stage');(el.requestFullscreen||el.webkitRequestFullscreen||(()=>{})).call(el);});
+  const palcoQ=$('#palco-q');
+  function fsInfo(){$('#fs-obra').textContent=atual?atual.titulo+' · '+atual.artista:'';$('#fs-regra').textContent='regra: '+(regra.value==='claro'?'claro soa forte':'escuro soa forte')+' · '+faixas.value+' faixas';$('#fs-play').textContent=tocando?'■ Parar':'▶ Ouvir';}
+  $('#tela-cheia').addEventListener('click',()=>{fsInfo();(palcoQ.requestFullscreen||palcoQ.webkitRequestFullscreen||(()=>{})).call(palcoQ);});
+  $('#fs-play').addEventListener('click',()=>{play.click();setTimeout(fsInfo,50);});
+  $('#fs-inverter').addEventListener('click',()=>{regra.value=regra.value==='claro'?'escuro':'claro';regra.dispatchEvent(new Event('change'));setTimeout(fsInfo,50);});
+  $('#fs-sair').addEventListener('click',()=>{(document.exitFullscreen||document.webkitExitFullscreen||(()=>{})).call(document);});
+  ['fullscreenchange','webkitfullscreenchange'].forEach(ev=>document.addEventListener(ev,()=>{fsInfo();requestAnimationFrame(()=>{pintarQuadro(null);if(!tocando){pintarLado(null,false);pintarSoma(null);}})}));
+  play.addEventListener('click',()=>setTimeout(fsInfo,50));
 
   /* ---------- animação: como um quadro vira som ---------- */
   (()=>{
@@ -910,7 +962,7 @@ $$('.previsao').forEach(p=>{const ta=p.querySelector('textarea'),k='prev:'+p.dat
     regra.addEventListener('change',legenda);faixas.addEventListener('change',legenda);
     refazer();legenda();laco();
   })();
-  refazer.push(()=>{pintarQuadro(null);pintarSono(null);});document.addEventListener('aba',e=>{if(e.detail==='quadro'){pintarSono(null);}});
+  refazer.push(()=>{pintarQuadro(null);pintarSono(null);if(!tocando)pintarLado(null,false);});document.addEventListener('aba',e=>{if(e.detail==='quadro'){pintarSono(null);requestAnimationFrame(()=>{if(!tocando)pintarLado(null,false);});}});
   /* créditos */
   $('#creditos').innerHTML='';QUADROS.forEach(q=>{const li=document.createElement('li');li.textContent=q.artista+', “'+q.titulo+'” ('+q.ano+'). ('+q.arquivo.replace(/_/g,' ')+')';$('#creditos').appendChild(li);});
   galeria();escolher(QUADROS.find(q=>q.id===store.get('obra',''))||QUADROS.find(q=>q.id==='posimpressionismo_noite'));
