@@ -148,6 +148,22 @@ textarea{width:100%;min-height:76px;resize:vertical;font:15px/1.45 var(--sans);c
 .escola-head{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;margin-top:22px}
 .escola-head h3{font-size:22px}
 .quadro-stage{display:flex;justify-content:center;background:#0d0f14;border-radius:12px;padding:10px}
+.explica{margin-top:30px}
+.explica .exp-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:14px}
+.explica .exp-head p{margin:.4em 0 0;color:var(--muted);max-width:680px}
+.exp-passos{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 12px}
+.exp-passos button{font:600 13px var(--sans);border:1px solid var(--line);background:var(--card);color:var(--muted);border-radius:999px;padding:8px 12px;cursor:pointer;min-height:38px}
+.exp-passos button[aria-current=step]{background:var(--gold);border-color:var(--gold);color:#1a1205}
+.exp-passos button .k{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--soft);color:var(--ink);font-size:11px;margin-right:6px}
+.exp-palco{background:#0d0f14;border-radius:12px;padding:8px}
+.exp-palco canvas{width:100%;height:auto;display:block;border-radius:8px}
+.exp-legenda{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start;margin-top:14px}
+.exp-legenda .num{font:600 40px/1 var(--serif);color:var(--gold)}
+.exp-legenda h4{margin:0 0 4px;font:600 20px var(--serif)}
+.exp-legenda p{margin:0;font-size:16px}
+.exp-ctl{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.exp-barra{height:4px;background:var(--soft);border-radius:4px;overflow:hidden;margin-top:12px}
+.exp-barra i{display:block;height:100%;width:0;background:var(--gold)}
 .quadro-stage canvas{width:auto;max-width:100%;max-height:62vh;border-radius:4px;cursor:pointer}
 .obra-info h3{font-size:26px;margin:6px 0 4px}
 .obra-info .meta{color:var(--muted);font-size:15px}
@@ -410,7 +426,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;font-size:14px;color
           <div class="field"><label class="ctl-title" for="regra-q">Regra de tradução</label>
             <select id="regra-q"><option value="claro">Claro soa forte · escuro é silêncio</option><option value="escuro">Escuro soa forte · claro é silêncio</option></select></div>
           <div class="field"><label class="ctl-title" for="faixas">Faixas de frequência</label>
-            <select id="faixas"><option value="20">20 faixas · escala pentatônica (110–1760 Hz)</option><option value="48">48 faixas · contínuas (110–1760 Hz)</option></select></div>
+            <select id="faixas"><option value="20">20 faixas · escala pentatônica (110–1480 Hz)</option><option value="48">48 faixas · contínuas (110–1760 Hz)</option></select></div>
           <div class="field range"><label for="dur-q">Duração da varredura <output id="o-dur-q">12 s</output></label>
             <input id="dur-q" type="range" min="4" max="30" step="1" value="12"></div>
           <div class="field range"><label for="vol-q">Volume <output id="o-vol-q">40%</output></label>
@@ -427,6 +443,20 @@ footer{border-top:1px solid var(--line);padding:26px 0 40px;font-size:14px;color
         <div class="rule warn"><b>Cuidado</b>O quadro não “tem” esse som. Com a regra invertida, o mesmo quadro soa outro. E nenhuma regra recupera a obra: ouvir não substitui ver nem descrever.</div>
       </div>
     </div>
+    <section class="card pad explica" id="explica" aria-labelledby="exp-t">
+      <div class="exp-head"><div><span class="badge img">Passo a passo</span><h3 id="exp-t" style="margin-top:8px;font-size:26px">Como um quadro vira som</h3>
+        <p>A animação usa o quadro selecionado acima e a regra escolhida. Avance pelas etapas ou deixe tocar sozinho.</p></div></div>
+      <div class="exp-passos" id="exp-passos" role="group" aria-label="Etapas da explicação"></div>
+      <div class="exp-palco"><canvas id="cv-exp" width="1200" height="600" aria-label="Animação: como o quadro selecionado é convertido em som"></canvas></div>
+      <div class="exp-barra" aria-hidden="true"><i id="exp-prog"></i></div>
+      <div class="exp-legenda" aria-live="polite"><div class="num" id="exp-num">1</div><div><h4 id="exp-tit"></h4><p id="exp-txt"></p></div></div>
+      <div class="exp-ctl">
+        <button class="btn" id="exp-ant" type="button">◀ Anterior</button>
+        <button class="btn primary" id="exp-auto" type="button" aria-pressed="true">⏸ Pausar</button>
+        <button class="btn" id="exp-prox" type="button">Próxima ▶</button>
+        <button class="btn ghost" id="exp-ouvir" type="button">▶ Ouvir este quadro</button>
+      </div>
+    </section>
     <div class="escola-head" style="margin-top:40px"><h3>Escolha outro quadro</h3><span class="muted">27 obras em domínio público, 3 de cada escola</span></div>
     <div class="escolas chips" id="escolas" role="group" aria-label="Filtrar por escola artística" style="margin-top:12px"></div>
     <div id="galeria-wrap"></div>
@@ -716,7 +746,7 @@ $$('.previsao').forEach(p=>{const ta=p.querySelector('textarea'),k='prev:'+p.dat
 (()=>{
   const cv=$('#cv-quadro'),cx=cv.getContext('2d'),so=$('#cv-sono'),sx=so.getContext('2d');
   const play=$('#play-q'),st=$('#st-q'),regra=$('#regra-q'),faixas=$('#faixas'),dur=$('#dur-q'),vol=$('#vol-q');
-  const COLS=160;let atual=null,img=null,lum=null,M=null,tocando=false,raf=0,ini=0,desloc=0,oscs=[],ganhos=[],mestre=null,sonoImg=null,filtro=store.get('escola','todas');
+  const COLS=160;let cor=null,atual=null,img=null,lum=null,M=null,tocando=false,raf=0,ini=0,desloc=0,oscs=[],ganhos=[],mestre=null,sonoImg=null,filtro=store.get('escola','todas');
   const src=q=>IMAGENS[q.id]||('quadros/'+q.id+'.jpg');
   /* galeria */
   const esc=$('#escolas');
@@ -732,13 +762,13 @@ $$('.previsao').forEach(p=>{const ta=p.querySelector('textarea'),k='prev:'+p.dat
       w.appendChild(g);});}
   /* análise da imagem */
   function analisar(){if(!img)return;const N=+faixas.value,off=document.createElement('canvas');off.width=COLS;off.height=N;const o=off.getContext('2d',{willReadFrequently:true});o.imageSmoothingQuality='high';o.drawImage(img,0,0,COLS,N);
-    try{const d=o.getImageData(0,0,COLS,N).data;lum=new Float32Array(COLS*N);for(let r=0;r<N;r++)for(let c=0;c<COLS;c++){const i=4*(r*COLS+c);lum[(N-1-r)*COLS+c]=(.2126*d[i]+.7152*d[i+1]+.0722*d[i+2])/255;}}
+    try{const d=o.getImageData(0,0,COLS,N).data;cor=d;lum=new Float32Array(COLS*N);for(let r=0;r<N;r++)for(let c=0;c<COLS;c++){const i=4*(r*COLS+c);lum[(N-1-r)*COLS+c]=(.2126*d[i]+.7152*d[i+1]+.0722*d[i+2])/255;}}
     catch(e){lum=null;st.textContent='Este navegador bloqueou a leitura da imagem. Abra a versão montada da página (onda_sonora.html).';}
     mapa();}
   function mapa(){if(!lum){M=null;return;}const N=+faixas.value;M=new Float32Array(COLS*N);
     const ord=Float32Array.from(lum).sort(),mn=ord[Math.floor(.08*ord.length)],mxl=ord[Math.floor(.97*ord.length)],span=Math.max(.15,mxl-mn);
     for(let i=0;i<lum.length;i++){let v=Math.max(0,Math.min(1,(lum[i]-mn)/span));if(regra.value==='escuro')v=1-v;v=v<.18?0:Math.pow((v-.18)/.82,1.8);M[i]=v;}
-    sonograma();descrever();}
+    sonograma();descrever();if(window.__expRefazer)window.__expRefazer();}
   const freqs=()=>{const N=+faixas.value;if(N===20){const PEN=[0,2,4,7,9];return Array.from({length:N},(_,b)=>110*Math.pow(2,(12*Math.floor(b/5)+PEN[b%5])/12));}return Array.from({length:N},(_,b)=>110*Math.pow(2,4*b/(N-1)));};
   function sonograma(){const N=+faixas.value,w=so.width,h=so.height,cw=w/COLS,ch=h/N;const off=document.createElement('canvas');off.width=w;off.height=h;const o=off.getContext('2d');
     o.fillStyle='#0d0f14';o.fillRect(0,0,w,h);
@@ -785,6 +815,101 @@ $$('.previsao').forEach(p=>{const ta=p.querySelector('textarea'),k='prev:'+p.dat
   dur.addEventListener('input',()=>$('#o-dur-q').textContent=dur.value+' s');
   vol.addEventListener('input',()=>{$('#o-vol-q').textContent=vol.value+'%';if(mestre)mestre.gain.setTargetAtTime(vol.value/100*.5,AC.currentTime,.05);});
   $('#tela-cheia').addEventListener('click',()=>{const el=$('.quadro-stage');(el.requestFullscreen||el.webkitRequestFullscreen||(()=>{})).call(el);});
+
+  /* ---------- animação: como um quadro vira som ---------- */
+  (()=>{
+    const cv=$('#cv-exp'),cx=cv.getContext('2d'),W=cv.width,H=cv.height;
+    const PASSOS=[
+      ['O quadro','Um quadro digital é uma grade de milhares de pixels, cada um com uma cor. À direita, um pedacinho ampliado: cada quadradinho é um pixel.',5],
+      ['A grade','O programa encolhe o quadro para uma grade de 160 colunas × N faixas. Cada célula é a média dos pixels do seu pedaço. Por isso não é pixel a pixel.',6],
+      ['Cada faixa é uma nota','Cada faixa horizontal vira uma frequência fixa: no topo, a mais aguda (TOPO Hz); na base, a mais grave (110 Hz). Com 20 faixas, as notas seguem a escala pentatônica.',7],
+      ['O brilho vira volume','De cada célula, o programa lê só o brilho, e não a cor. Com a regra atual, REGRA. Repare: vermelho e verde com o mesmo brilho soam igual.',7],
+      ['A varredura','Uma linha anda da esquerda para a direita. Em cada instante, o brilho das N células da coluna define o volume das N notas.',8],
+      ['A soma','O som de cada instante é a soma dessas N senoides, uma superposição. Juntando todas as colunas, temos o sonograma: um espectrograma lido ao contrário.',9]];
+    let passo=0,t0=performance.now(),auto=!matchMedia('(prefers-reduced-motion: reduce)').matches,raf=0,blocos=null,volume=null,visivel=false;
+    const pw=$('#exp-passos');
+    PASSOS.forEach((p,i)=>{const b=document.createElement('button');b.type='button';b.innerHTML='<span class="k">'+(i+1)+'</span>';b.appendChild(document.createTextNode(p[0]));b.addEventListener('click',()=>ir(i));pw.appendChild(b);});
+    function N(){return +faixas.value;}
+    function regraTxt(){return regra.value==='claro'?'claro soa forte e escuro é silêncio':'escuro soa forte e claro é silêncio';}
+    function legenda(){const p=PASSOS[passo];$('#exp-num').textContent=passo+1;$('#exp-tit').textContent=p[0];
+      const fq=freqs();$('#exp-txt').textContent=p[1].replace('REGRA',regraTxt()).replace(/\bN\b/g,N()).replace('TOPO',Math.round(fq[fq.length-1]).toLocaleString('pt-BR')).replace('Com 20 faixas, as notas seguem a escala pentatônica.',N()===20?'Com 20 faixas, as notas seguem a escala pentatônica.':'Com 48 faixas, as notas são contínuas.');
+      [...pw.children].forEach((b,i)=>{if(i===passo)b.setAttribute('aria-current','step');else b.removeAttribute('aria-current');});}
+    function ir(i){passo=(i+PASSOS.length)%PASSOS.length;t0=performance.now();legenda();}
+    function refazer(){if(!cor||!M||!img){blocos=volume=null;return;}const n=N();
+      blocos=document.createElement('canvas');blocos.width=COLS;blocos.height=n;const b=blocos.getContext('2d');const id=b.createImageData(COLS,n);id.data.set(cor);b.putImageData(id,0,0);
+      volume=document.createElement('canvas');volume.width=COLS;volume.height=n;const v=volume.getContext('2d');const iv=v.createImageData(COLS,n);
+      for(let r=0;r<n;r++)for(let c=0;c<COLS;c++){const a=M[(n-1-r)*COLS+c],k=4*(r*COLS+c),g=Math.round(255*a);iv.data[k]=g;iv.data[k+1]=g;iv.data[k+2]=g;iv.data[k+3]=255;}
+      v.putImageData(iv,0,0);legenda();}
+    window.__expRefazer=refazer;
+    /* geometria: quadro à esquerda, painel à direita */
+    function caixa(){const bw=600,bh=520;const k=Math.min(bw/img.naturalWidth,bh/img.naturalHeight);const w=img.naturalWidth*k,h=img.naturalHeight*k;return{x:40+(bw-w)/2,y:40+(bh-h)/2,w,h};}
+    const ease=x=>x<0?0:x>1?1:x*x*(3-2*x);
+    const fs=(px,w)=>(w||'')+' '+px+'px system-ui, sans-serif';
+    function txt(s,x,y,px,cor_,al,w){cx.font=fs(px,w);cx.fillStyle=cor_||'#ece7dc';cx.textAlign=al||'left';cx.fillText(s,x,y);cx.textAlign='left';}
+    function grade(b,n,alfa,todasCols){cx.save();cx.globalAlpha=alfa;cx.strokeStyle='rgba(255,255,255,.55)';cx.lineWidth=1;
+      for(let r=0;r<=n;r++){const y=b.y+r*b.h/n;cx.beginPath();cx.moveTo(b.x,y);cx.lineTo(b.x+b.w,y);cx.stroke();}
+      const passoC=todasCols?1:10;for(let c=0;c<=COLS;c+=passoC){const x=b.x+c*b.w/COLS;cx.beginPath();cx.moveTo(x,b.y);cx.lineTo(x,b.y+b.h);cx.stroke();}cx.restore();}
+    function nitido(src,b){cx.save();cx.imageSmoothingEnabled=false;cx.drawImage(src,b.x,b.y,b.w,b.h);cx.restore();}
+    const PX=4.2;// px de tela por coluna no zoom
+    function pintar(){
+      const t=(performance.now()-t0)/1000,dur=PASSOS[passo][2];$('#exp-prog').style.width=Math.min(100,100*t/dur)+'%';
+      cx.fillStyle='#0d0f14';cx.fillRect(0,0,W,H);
+      if(!img||!blocos){txt('Escolha um quadro na galeria.',W/2,H/2,26,'#a4adbd','center');return;}
+      const b=caixa(),n=N(),fr=freqs(),R=740,RW=420;
+      const linha=(x1,y1,x2,y2,c,lw)=>{cx.strokeStyle=c;cx.lineWidth=lw||2;cx.beginPath();cx.moveTo(x1,y1);cx.lineTo(x2,y2);cx.stroke();};
+      if(passo===0){cx.drawImage(img,b.x,b.y,b.w,b.h);
+        const zx=img.naturalWidth*.42,zy=img.naturalHeight*.38,zs=Math.max(8,Math.round(img.naturalWidth/40));
+        const ax=b.x+zx/img.naturalWidth*b.w,ay=b.y+zy/img.naturalHeight*b.h,aw=zs/img.naturalWidth*b.w,ah=zs/img.naturalHeight*b.h;
+        const a=ease(t/1.2);cx.strokeStyle='#f0c24f';cx.lineWidth=3;cx.strokeRect(ax,ay,aw,ah);
+        cx.save();cx.globalAlpha=a;cx.imageSmoothingEnabled=false;cx.drawImage(img,zx,zy,zs,zs,R,70,RW,RW);cx.restore();
+        cx.save();cx.globalAlpha=a*.6;cx.strokeStyle='#0d0f14';cx.lineWidth=1;for(let k=0;k<=zs;k++){const q=R+k*RW/zs;linha(q,70,q,70+RW,'rgba(13,15,20,.7)',1);const y=70+k*RW/zs;linha(R,y,R+RW,y,'rgba(13,15,20,.7)',1);}cx.restore();
+        cx.save();cx.globalAlpha=a;linha(ax+aw,ay,R,70,'#f0c24f',1.5);linha(ax+aw,ay+ah,R,70+RW,'#f0c24f',1.5);cx.restore();
+        txt('pedaço ampliado: '+zs+' × '+zs+' pixels',R,530,22,'#f0c24f');txt('o quadro inteiro tem '+(img.naturalWidth*img.naturalHeight).toLocaleString('pt-BR')+' pixels',R,562,19,'#a4adbd');}
+      else if(passo===1){const a=ease((t-.6)/2);cx.drawImage(img,b.x,b.y,b.w,b.h);cx.save();cx.globalAlpha=a;nitido(blocos,b);cx.restore();grade(b,n,a*.9,false);
+        txt(String(COLS),R,170,92,'#f0c24f','left','600');txt('colunas',R+190,170,30,'#ece7dc');
+        txt('× '+n,R,290,92,'#f0c24f','left','600');txt('faixas',R+190,290,30,'#ece7dc');
+        cx.save();cx.globalAlpha=ease((t-2.2)/1);txt('= '+(COLS*n).toLocaleString('pt-BR')+' células',R,370,34,'#ece7dc','left','600');
+        txt('cada célula = a média',R,430,22,'#a4adbd');txt('das cores dos pixels do seu pedaço',R,460,22,'#a4adbd');cx.restore();}
+      else if(passo===2){nitido(blocos,b);grade(b,n,.5,false);
+        const k=Math.floor((t*2.2)%n),r=k;const y=b.y+r*b.h/n,hh=b.h/n;
+        cx.fillStyle='rgba(240,194,79,.28)';cx.fillRect(b.x,y,b.w,hh);cx.strokeStyle='#f0c24f';cx.lineWidth=3;cx.strokeRect(b.x,y,b.w,hh);
+        const band=n-1-r,f=fr[band];linha(b.x+b.w,y+hh/2,R-10,300,'#f0c24f',2);
+        txt('faixa '+(r+1)+' de '+n,R,120,24,'#a4adbd');txt(Math.round(f).toLocaleString('pt-BR')+' Hz',R,190,64,'#f0c24f','left','600');txt(nota(f),R,236,26,'#ece7dc');
+        const ciclos=1.5+7*band/(n-1);cx.strokeStyle='#f0c24f';cx.lineWidth=3;cx.beginPath();for(let i=0;i<=RW;i++){const yy=360+50*Math.sin(2*Math.PI*ciclos*i/RW-t*6);i?cx.lineTo(R+i,yy):cx.moveTo(R+i,yy);}cx.stroke();
+        txt('▲ topo = agudo ('+Math.round(fr[n-1]).toLocaleString('pt-BR')+' Hz)',R,470,21,'#ece7dc');txt('▼ base = grave (110 Hz)',R,502,21,'#ece7dc');txt('a nota de cada faixa nunca muda',R,548,19,'#a4adbd');}
+      else if(passo===3){const a=ease((t-.8)/2.2);nitido(blocos,b);cx.save();cx.globalAlpha=a;nitido(volume,b);cx.restore();grade(b,n,.25,false);
+        const gx=R,gy=80;const gr=cx.createLinearGradient(gx,0,gx+RW,0);gr.addColorStop(0,'#000');gr.addColorStop(1,'#fff');cx.fillStyle=gr;cx.fillRect(gx,gy,RW,44);cx.strokeStyle='#46506a';cx.strokeRect(gx,gy,RW,44);
+        const esq=regra.value==='claro'?'silêncio':'forte',dir=regra.value==='claro'?'forte':'silêncio';txt('escuro → '+esq,gx,gy+76,21,'#ece7dc');txt('claro → '+dir,gx+RW,gy+76,21,'#ece7dc','right');
+        const sw=(c,x,y,l)=>{cx.fillStyle=c;cx.fillRect(x,y,120,90);txt(l,x+60,y+118,18,'#a4adbd','center');};
+        const b2=ease((t-2.5)/1.2);cx.save();cx.globalAlpha=b2;txt('a cor não conta:',gx,250,22,'#f0c24f','left','600');
+        sw('rgb(200,40,40)',gx,275,'vermelho');sw('rgb(0,103,0)',gx+150,275,'verde');
+        txt('→',gx+300,330,40,'#ece7dc','center');sw('rgb(74,74,74)',gx+320,275,'mesmo brilho');cx.restore();
+        txt('brilho = 0,21·R + 0,72·G + 0,07·B',gx,470,20,'#a4adbd');txt('a imagem à esquerda agora é o volume',gx,510,20,'#a4adbd');}
+      else{const ciclo=6,u=((t-.3)%ciclo+ciclo)%ciclo/ciclo,c=Math.min(COLS-1,Math.floor(u*COLS)),xs=b.x+(c+.5)*b.w/COLS;
+        nitido(volume,b);cx.fillStyle='rgba(0,0,0,.45)';cx.fillRect(b.x,b.y,xs-b.x,b.h);linha(xs,b.y-6,xs,b.y+b.h+6,'#ff7a50',4);
+        cx.strokeStyle='#ff7a50';cx.lineWidth=2;cx.strokeRect(xs-b.w/COLS*1.5,b.y,b.w/COLS*3,b.h);
+        if(passo===4){const hh=b.h/n;txt('volume de cada nota, agora',R,b.y-14,20,'#a4adbd');
+          for(let r=0;r<n;r++){const band=n-1-r,a=M[band*COLS+c],y=b.y+r*hh;cx.fillStyle='rgba(255,255,255,.06)';cx.fillRect(R,y+1,RW-80,hh-2);
+            cx.fillStyle='#ff7a50';cx.fillRect(R,y+1,(RW-80)*a,hh-2);if(n<=24||r%3===0)txt(Math.round(fr[band])+' Hz',R+RW-70,y+hh*.72,Math.min(15,hh*.75),'#a4adbd');}}
+        else{const ativos=[];for(let band=0;band<n;band++){const a=M[band*COLS+c];if(a>0.02)ativos.push([a,band]);}ativos.sort((p,q)=>q[0]-p[0]);const top=ativos.slice(0,5).sort((p,q)=>q[1]-p[1]);
+          txt(ativos.length+' de '+n+' notas soando nesta coluna',R,60,20,'#a4adbd');const h0=86,hh=56;
+          top.forEach(([a,band],i)=>{const y=h0+i*hh+hh/2,ciclos=1.5+7*band/(n-1);cx.strokeStyle='rgba(240,194,79,.85)';cx.lineWidth=2;cx.beginPath();
+            for(let k=0;k<=RW-90;k++){const yy=y-a*20*Math.sin(2*Math.PI*ciclos*k/(RW-90)-t*5);k?cx.lineTo(R+k,yy):cx.moveTo(R+k,yy);}cx.stroke();txt(Math.round(fr[band])+' Hz',R+RW-80,y+6,15,'#a4adbd');});
+          if(ativos.length>5)txt('+ '+(ativos.length-5)+' outras',R,h0+5*hh+6,16,'#a4adbd');
+          const ys=h0+5*hh+80;txt('=',R-30,ys+8,34,'#ece7dc');let soma=[],mx=.001;for(let k=0;k<=RW;k++){let v=0;for(const [a,band] of ativos)v+=a*Math.sin(2*Math.PI*(1.5+7*band/(n-1))*k/RW-t*5+band);soma.push(v);mx=Math.max(mx,Math.abs(v));}
+          cx.strokeStyle='#ff7a50';cx.lineWidth=3;cx.beginPath();soma.forEach((v,k)=>{const yy=ys-v/mx*48;k?cx.lineTo(R+k,yy):cx.moveTo(R+k,yy);});cx.stroke();
+          txt('a soma: o som deste instante',R,ys+80,20,'#ff7a50','left','600');}}
+      if(auto&&t>PASSOS[passo][2])ir(passo+1);}
+    function laco(){if(visivel&&!$('#p-quadro').hidden)pintar();raf=requestAnimationFrame(laco);}
+    const io='IntersectionObserver' in window?new IntersectionObserver(es=>es.forEach(e=>{visivel=e.isIntersecting;if(visivel)t0=performance.now()-0;}),{threshold:.2}):null;
+    if(io)io.observe(cv);else visivel=true;
+    $('#exp-ant').addEventListener('click',()=>ir(passo-1));$('#exp-prox').addEventListener('click',()=>ir(passo+1));
+    const ba=$('#exp-auto');const marcaAuto=()=>{ba.textContent=auto?'⏸ Pausar':'▶ Tocar sozinho';ba.setAttribute('aria-pressed',auto);};
+    ba.addEventListener('click',()=>{auto=!auto;if(auto)t0=performance.now();marcaAuto();});marcaAuto();
+    $('#exp-ouvir').addEventListener('click',()=>{$('#player-quadro').scrollIntoView({behavior:'smooth',block:'start'});tocar(0);});
+    regra.addEventListener('change',legenda);faixas.addEventListener('change',legenda);
+    refazer();legenda();laco();
+  })();
   refazer.push(()=>{pintarQuadro(null);pintarSono(null);});document.addEventListener('aba',e=>{if(e.detail==='quadro'){pintarSono(null);}});
   /* créditos */
   $('#creditos').innerHTML='';QUADROS.forEach(q=>{const li=document.createElement('li');li.textContent=q.artista+', “'+q.titulo+'” ('+q.ano+'). ('+q.arquivo.replace(/_/g,' ')+')';$('#creditos').appendChild(li);});
